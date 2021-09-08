@@ -1,0 +1,25 @@
+{
+    "name": "jeffreyvanrossum/wp-meta-box",
+    "description": "Handy wrapper to make creating WordPress meta boxes a breeze.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Jeffrey van Rossum",
+            "email": "jeffrey@vanrossum.dev"
+        }
+    ],
+    "require": {
+        "php": "^7.2|^8.0"
+    },
+    "require-dev": {
+        "phpcompatibility/php-compatibility": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jeffreyvr\\WPMetaBox\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    }
+}
