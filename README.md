@@ -20,8 +20,8 @@ use Jeffreyvr\WPMetaBox\WPMetaBox;
 $meta_box = new WPMetaBox(__('My meta box name'));
 
 $meta_box->add_option('text', [
-    'name' => 'mailchimp_api_key',
-    'label' => __('API Key', 'textdomain')
+    'name' => 'name_of_option',
+    'label' => __('Label of option', 'textdomain')
 ]);
 
 $meta_box->make();
