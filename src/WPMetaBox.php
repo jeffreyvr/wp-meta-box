@@ -8,7 +8,9 @@ class WPMetaBox
 {
     public $title;
     public $id;
+    public $post_id;
     public $post_types;
+    public $prefix = '_';
     public $capability;
     public $options = [];
 
@@ -16,8 +18,24 @@ class WPMetaBox
     {
         $this->title = $title;
         $this->id = sanitize_title($this->title);
-
         $this->set_post_types($post_types);
+
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_styling']);
+    }
+
+    public function enqueue_styling()
+    {
+        wp_register_style('wp-meta-box', false);
+        wp_enqueue_style('wp-meta-box');
+
+        wp_add_inline_style('wp-meta-box', resource_content('css/wp-meta-box.css'));
+    }
+
+    public function set_prefix($prefix)
+    {
+        $this->prefix = $prefix;
+
+        return $this;
     }
 
     public function set_capability($capability)
@@ -77,7 +95,7 @@ class WPMetaBox
 
     public function add_option($type, $args = [])
     {
-        $option = new Option($type, $args);
+        $option = new Option($this, $type, $args);
 
         $this->options[] = $option;
 
