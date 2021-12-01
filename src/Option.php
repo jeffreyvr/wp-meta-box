@@ -15,7 +15,7 @@ class Option
     public $meta_box;
     public $type;
     public $args;
-    public $strategy;
+    public $implementation;
 
     public function __construct($meta_box, $type, $args = [])
     {
@@ -23,30 +23,25 @@ class Option
         $this->type = $type;
         $this->args = $args;
 
-        if ($this->type === 'text') {
-            $this->strategy = new Text($this->args, $this->meta_box);
-        } elseif ($this->type === 'textarea') {
-            $this->strategy = new Textarea($this->args, $this->meta_box);
-        } elseif ($this->type === 'checkbox') {
-            $this->strategy = new Checkbox($this->args, $this->meta_box);
-        } elseif ($this->type === 'choices') {
-            $this->strategy = new Choices($this->args, $this->meta_box);
-        } elseif ($this->type === 'select') {
-            $this->strategy = new Select($this->args, $this->meta_box);
-        } elseif ($this->type === 'select-multiple') {
-            $this->strategy = new SelectMultiple($this->args, $this->meta_box);
-        } else {
-            throw new Exception('Type does not exist');
-        }
+        $type_map = apply_filters('wp_meta_box_option_type_map', [
+            'text' => Text::class,
+            'checkbox' => Checkbox::class,
+            'choices' => Choices::class,
+            'textarea' => Textarea::class,
+            'select' => Select::class,
+            'select-multiple' => SelectMultiple::class
+        ]);
+
+        $this->implementation = new $type_map[$this->type]($this->args, $this->meta_box);
     }
 
     public function save()
     {
-        return $this->strategy->save();
+        return $this->implementation->save();
     }
 
     public function render()
     {
-        echo $this->strategy->render();
+        echo $this->implementation->render();
     }
 }
