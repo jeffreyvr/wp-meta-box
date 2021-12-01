@@ -11,7 +11,7 @@ class WPMetaBox
     public $post_id;
     public $post_types;
     public $prefix = '_';
-    public $capability;
+    public $capability = 'edit_posts';
     public $options = [];
 
     public function __construct($title, $post_types = [])
@@ -116,8 +116,10 @@ class WPMetaBox
             return $post_id;
         }
 
-        // TODO: implement capability check.
-        // TODO: implement saving.
+        if (! current_user_can($this->capability)) {
+            return $post_id;
+        }
+
         foreach ($this->options as $option) {
             $option->save();
         }

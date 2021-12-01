@@ -31,7 +31,11 @@ abstract class OptionAbstract
 
     public function save()
     {
-        update_post_meta($this->get_post_id(), $this->get_name_attribute(), $this->get_value_from_request());
+        if ($value = $this->get_value_from_request()) {
+            update_post_meta($this->get_post_id(), $this->get_name_attribute(), $value);
+        } else {
+            delete_post_meta($this->get_post_id(), $this->get_name_attribute());
+        }
     }
 
     public function render()

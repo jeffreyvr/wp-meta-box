@@ -3,9 +3,12 @@
 namespace Jeffreyvr\WPMetaBox;
 
 use Exception;
-use Jeffreyvr\WPMetaBox\Options\Select;
 use Jeffreyvr\WPMetaBox\Options\Text;
+use Jeffreyvr\WPMetaBox\Options\Select;
+use Jeffreyvr\WPMetaBox\Options\Choices;
+use Jeffreyvr\WPMetaBox\Options\Checkbox;
 use Jeffreyvr\WPMetaBox\Options\Textarea;
+use Jeffreyvr\WPMetaBox\Options\SelectMultiple;
 
 class Option
 {
@@ -24,8 +27,14 @@ class Option
             $this->strategy = new Text($this->args, $this->meta_box);
         } elseif ($this->type === 'textarea') {
             $this->strategy = new Textarea($this->args, $this->meta_box);
+        } elseif ($this->type === 'checkbox') {
+            $this->strategy = new Checkbox($this->args, $this->meta_box);
+        } elseif ($this->type === 'choices') {
+            $this->strategy = new Choices($this->args, $this->meta_box);
         } elseif ($this->type === 'select') {
             $this->strategy = new Select($this->args, $this->meta_box);
+        } elseif ($this->type === 'select-multiple') {
+            $this->strategy = new SelectMultiple($this->args, $this->meta_box);
         } else {
             throw new Exception('Type does not exist');
         }

@@ -2,9 +2,14 @@
     display: flex;
     width: 100%;
     max-width: 600px;
-    margin-bottom: 5px;
+    margin-bottom: 1em;
 }
 
 .wmb-input label {
     min-width: 200px;
+}
+
+.wmb-input-description {
+    font-style: italic;
+    margin: 0 0 0.5em 0;
 }
