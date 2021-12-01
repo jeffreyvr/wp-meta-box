@@ -3,10 +3,14 @@
     margin-bottom: 1em;
 }
 
+.wmb-input > div {
+    width: 100%;
+}
+
 .metabox-location-advanced .wmb-input {
     display: flex;
     width: 100%;
-    max-width: 600px;
+    max-width: 760px;
 }
 
 .metabox-location-side  .wmb-input {
@@ -20,4 +24,8 @@
 .wmb-input-description {
     font-style: italic;
     margin: 0 0 0.5em 0;
+}
+
+.wmb-code-editor {
+    border: 1px solid #ddd;
 }

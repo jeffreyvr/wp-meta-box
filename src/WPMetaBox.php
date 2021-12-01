@@ -15,14 +15,20 @@ class WPMetaBox
     public $context = 'advanced';
     public $priority = 'default';
     public $options = [];
+    public $styling = true;
 
     public function __construct($title, $post_types = [])
     {
         $this->title = $title;
         $this->id = sanitize_title($this->title);
         $this->set_post_types($post_types);
+    }
 
-        add_action('admin_enqueue_scripts', [$this, 'enqueue_styling']);
+    public function disable_styling()
+    {
+        $this->styling = false;
+
+        return $this;
     }
 
     public function enqueue_styling()
@@ -79,12 +85,6 @@ class WPMetaBox
     public function get_post_types()
     {
         return $this->post_types;
-    }
-
-    public function make()
-    {
-        add_action('add_meta_boxes', [$this, 'register']);
-        add_action('save_post', [$this, 'save']);
     }
 
     public function register()
@@ -150,5 +150,15 @@ class WPMetaBox
         }
 
         wp_nonce_field(str_replace('_nonce', '', $this->get_nonce()), $this->get_nonce());
+    }
+
+    public function make()
+    {
+        if ($this->styling) {
+            add_action('admin_enqueue_scripts', [$this, 'enqueue_styling']);
+        }
+
+        add_action('add_meta_boxes', [$this, 'register']);
+        add_action('save_post', [$this, 'save']);
     }
 }

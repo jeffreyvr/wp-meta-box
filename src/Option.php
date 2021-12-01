@@ -7,7 +7,9 @@ use Jeffreyvr\WPMetaBox\Options\Text;
 use Jeffreyvr\WPMetaBox\Options\Select;
 use Jeffreyvr\WPMetaBox\Options\Choices;
 use Jeffreyvr\WPMetaBox\Options\Checkbox;
+use Jeffreyvr\WPMetaBox\Options\CodeEditor;
 use Jeffreyvr\WPMetaBox\Options\Textarea;
+use Jeffreyvr\WPMetaBox\Options\WPEditor;
 use Jeffreyvr\WPMetaBox\Options\SelectMultiple;
 
 class Option
@@ -29,7 +31,9 @@ class Option
             'choices' => Choices::class,
             'textarea' => Textarea::class,
             'select' => Select::class,
-            'select-multiple' => SelectMultiple::class
+            'select-multiple' => SelectMultiple::class,
+            'wp-editor' => WPEditor::class,
+            'code-editor' => CodeEditor::class
         ]);
 
         if (empty($type_map[$this->type])) {
