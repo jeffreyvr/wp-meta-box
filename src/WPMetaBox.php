@@ -12,6 +12,8 @@ class WPMetaBox
     public $post_types;
     public $prefix = '_';
     public $capability = 'edit_posts';
+    public $context = 'advanced';
+    public $priority = 'default';
     public $options = [];
 
     public function __construct($title, $post_types = [])
@@ -41,6 +43,20 @@ class WPMetaBox
     public function set_capability($capability)
     {
         $this->capability = $capability;
+
+        return $this;
+    }
+
+    public function set_context($context)
+    {
+        $this->context = $context;
+
+        return $this;
+    }
+
+    public function set_priority($priority)
+    {
+        $this->priority = $priority;
 
         return $this;
     }
@@ -78,7 +94,9 @@ class WPMetaBox
                 $this->id,
                 $this->title,
                 [$this, 'render'],
-                $screen
+                $post_type,
+                $this->context,
+                $this->priority
             );
         }
     }

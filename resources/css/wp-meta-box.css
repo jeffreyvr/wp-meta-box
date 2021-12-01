@@ -1,11 +1,19 @@
 .wmb-input {
-    display: flex;
     width: 100%;
-    max-width: 600px;
     margin-bottom: 1em;
 }
 
-.wmb-input label {
+.metabox-location-advanced .wmb-input {
+    display: flex;
+    width: 100%;
+    max-width: 600px;
+}
+
+.metabox-location-side  .wmb-input {
+    display: block;
+}
+
+.metabox-location-advanced .wmb-input label {
     min-width: 200px;
 }
 

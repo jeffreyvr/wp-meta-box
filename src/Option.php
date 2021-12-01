@@ -32,6 +32,10 @@ class Option
             'select-multiple' => SelectMultiple::class
         ]);
 
+        if (empty($type_map[$this->type])) {
+            throw new Exception("The {$type} option does not exist");
+        }
+
         $this->implementation = new $type_map[$this->type]($this->args, $this->meta_box);
     }
 

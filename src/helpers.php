@@ -11,7 +11,7 @@ if (! function_exists('view')) {
             ${$name} = $value;
         }
 
-        $full_path = __DIR__ . "/../resources/views/{$file}.php";
+        $full_path = apply_filters('wp_meta_box_view_file_path', __DIR__ . "/../resources/views/{$file}.php");
 
         if (! file_exists($full_path)) {
             return;
