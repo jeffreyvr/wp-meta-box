@@ -8,7 +8,6 @@ class WPMetaBox
 {
     public $title;
     public $id;
-    public $post_id;
     public $post_types;
     public $prefix = '_';
     public $capability = 'edit_posts';
@@ -143,8 +142,12 @@ class WPMetaBox
         }
     }
 
-    public function render()
+    public function render($post)
     {
+        echo '<pre>';
+        print_r(get_post_meta($post->ID));
+        echo '</pre>';
+
         foreach ($this->options as $option) {
             echo $option->render();
         }

@@ -75,11 +75,21 @@ abstract class OptionAbstract
 
     public function get_name_attribute()
     {
-        return $this->meta_box->prefix . $this->get_arg('name');
+        return apply_filters(
+            'wmb_name_attribute_' . $this->get_arg('name'),
+            $this->meta_box->prefix . $this->get_arg('name'),
+            $this->get_post_id(),
+            $this->get_arg('name')
+        );
     }
 
     public function get_value_attribute()
     {
-        return get_post_meta($this->get_post_id(), $this->get_name_attribute(), true);
+        return apply_filters(
+            'wmb_value_attribute_' . $this->get_arg('name'),
+            get_post_meta($this->get_post_id(), $this->get_name_attribute(), true),
+            $this->get_post_id(),
+            $this->get_arg('name')
+        );
     }
 }
