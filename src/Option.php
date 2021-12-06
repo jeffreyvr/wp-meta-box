@@ -8,6 +8,8 @@ use Jeffreyvr\WPMetaBox\Options\Select;
 use Jeffreyvr\WPMetaBox\Options\Choices;
 use Jeffreyvr\WPMetaBox\Options\Checkbox;
 use Jeffreyvr\WPMetaBox\Options\CodeEditor;
+use Jeffreyvr\WPMetaBox\Options\Image;
+use Jeffreyvr\WPMetaBox\Options\Repeater;
 use Jeffreyvr\WPMetaBox\Options\Textarea;
 use Jeffreyvr\WPMetaBox\Options\WPEditor;
 use Jeffreyvr\WPMetaBox\Options\SelectMultiple;
@@ -33,7 +35,9 @@ class Option
             'select' => Select::class,
             'select-multiple' => SelectMultiple::class,
             'wp-editor' => WPEditor::class,
-            'code-editor' => CodeEditor::class
+            'code-editor' => CodeEditor::class,
+            'repeater' => Repeater::class,
+            'image' => Image::class
         ]);
 
         if (empty($type_map[$this->type])) {

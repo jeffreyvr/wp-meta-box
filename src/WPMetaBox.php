@@ -8,7 +8,6 @@ class WPMetaBox
 {
     public $title;
     public $id;
-    public $post_id;
     public $post_types;
     public $prefix = '_';
     public $capability = 'edit_posts';
@@ -16,6 +15,7 @@ class WPMetaBox
     public $priority = 'default';
     public $options = [];
     public $styling = true;
+    public $loaded_scripts = [];
 
     public function __construct($title, $post_types = [])
     {
@@ -31,12 +31,32 @@ class WPMetaBox
         return $this;
     }
 
+    public function script_is_loaded($script)
+    {
+        $this->loaded_scripts[] = $script;
+
+        return $this;
+    }
+
+    public function is_script_loaded($script)
+    {
+        return in_array($script, $this->loaded_scripts);
+    }
+
     public function enqueue_styling()
     {
         wp_register_style('wp-meta-box', false);
         wp_enqueue_style('wp-meta-box');
 
         wp_add_inline_style('wp-meta-box', resource_content('css/wp-meta-box.css'));
+    }
+
+    public function enqueue_script()
+    {
+        wp_register_script('wp-meta-box', false);
+        wp_enqueue_script('wp-meta-box');
+
+        wp_add_inline_script('wp-meta-box', resource_content('js/wp-meta-box.js'));
     }
 
     public function set_prefix($prefix)
@@ -143,10 +163,14 @@ class WPMetaBox
         }
     }
 
-    public function render()
+    public function render($post)
     {
         foreach ($this->options as $option) {
+            do_action('wmb_before_option_render', $option);
+
             echo $option->render();
+
+            do_action('wmb_after_option_render', $option);
         }
 
         wp_nonce_field(str_replace('_nonce', '', $this->get_nonce()), $this->get_nonce());
@@ -157,6 +181,8 @@ class WPMetaBox
         if ($this->styling) {
             add_action('admin_enqueue_scripts', [$this, 'enqueue_styling']);
         }
+
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_script']);
 
         add_action('add_meta_boxes', [$this, 'register']);
         add_action('save_post', [$this, 'save']);
