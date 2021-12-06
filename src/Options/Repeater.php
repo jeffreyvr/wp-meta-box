@@ -53,7 +53,9 @@ class Repeater extends OptionAbstract
             return $this->groups_set;
         }
 
-        $iterate = count($this->get_value_attribute());
+        $value = $this->get_value_attribute();
+
+        $iterate = !empty($value) ? count($value) : 1;
         $count = 0;
 
         while($count != $iterate) {
@@ -96,33 +98,13 @@ class Repeater extends OptionAbstract
                 $option->implementation->set_custom_name($this->get_name_attribute() . '['.$index.']' . '[' . $option->implementation->get_arg('name') . ']');
 
                 $option->implementation->set_custom_value(function($post_id) use ($repeater, $index, $option) {
-                    return get_post_meta($post_id, $repeater->get_name_attribute(), true)[$index][$option->implementation->get_arg('name')];
+                    $repeater_value = get_post_meta($post_id, $repeater->get_name_attribute(), true);
+
+                    return $repeater_value[$index][$option->implementation->get_arg('name')] ?? null;
                 });
             }
         }
 
         return $groups;
-    }
-
-    public function get_option_index($name)
-    {
-        foreach ($this->group_options() as $index => $options) {
-            foreach ($options as $option) {
-                if ($option->implementation->get_arg('name') === $name) {
-                    return $index;
-                }
-            }
-        }
-        return false;
-    }
-
-    public function get_custom_option_name_attribute($value, $post_id, $name)
-    {
-        return $this->get_name_attribute() . '['.$this->get_option_index($name).']' . '[' . $name . ']';
-    }
-
-    public function get_custom_option_value_attribute($value, $post_id, $name)
-    {
-        return get_post_meta($post_id, $this->get_name_attribute(), true)[$this->get_option_index($name)][$name];
     }
 }
