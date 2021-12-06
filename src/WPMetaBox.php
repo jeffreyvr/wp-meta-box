@@ -38,6 +38,14 @@ class WPMetaBox
         wp_add_inline_style('wp-meta-box', resource_content('css/wp-meta-box.css'));
     }
 
+    public function enqueue_script()
+    {
+        wp_register_script('wp-meta-box', false);
+        wp_enqueue_script('wp-meta-box');
+
+        wp_add_inline_script('wp-meta-box', resource_content('js/wp-meta-box.js'));
+    }
+
     public function set_prefix($prefix)
     {
         $this->prefix = $prefix;
@@ -144,9 +152,9 @@ class WPMetaBox
 
     public function render($post)
     {
-        echo '<pre>';
-        print_r(get_post_meta($post->ID));
-        echo '</pre>';
+        // echo '<pre>';
+        // print_r(get_post_meta($post->ID));
+        // echo '</pre>';
 
         foreach ($this->options as $option) {
             echo $option->render();
@@ -160,6 +168,8 @@ class WPMetaBox
         if ($this->styling) {
             add_action('admin_enqueue_scripts', [$this, 'enqueue_styling']);
         }
+
+        add_action('admin_enqueue_scripts', [$this, 'enqueue_script']);
 
         add_action('add_meta_boxes', [$this, 'register']);
         add_action('save_post', [$this, 'save']);

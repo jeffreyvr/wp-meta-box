@@ -29,3 +29,39 @@
 .wmb-code-editor {
     border: 1px solid #ddd;
 }
+
+.wbm-repeater-container {
+    position: relative;
+}
+
+.wbm-repeater-option-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding: 5px 3px;
+}
+
+.wbm-delete, .wbm-drag {
+    border: none;
+    background: none;
+    -webkit-appearance: none;
+}
+
+.wbm-delete {
+    cursor: pointer;
+}
+
+.wbm-drag {
+    cursor: grab;
+}
+
+.wbm-repeater-option-group {
+    border: 1px solid #eee;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.wbm-repeater-option-group-content {
+    padding: 10px;
+}

@@ -10,6 +10,8 @@ abstract class OptionAbstract
     public $meta_box;
     public $args = [];
     public $view;
+    public $custom_name = false;
+    public $custom_value = false;
 
     public function __construct($args = [], $meta_box)
     {
@@ -73,10 +75,28 @@ abstract class OptionAbstract
         return $this->get_arg('name');
     }
 
+    public function set_custom_name($name)
+    {
+        $this->custom_name = $name;
+
+        return $this;
+    }
+
+    public function set_custom_value($value)
+    {
+        $this->custom_value = $value;
+
+        return $this;
+    }
+
     public function get_name_attribute()
     {
+        if($this->custom_name) {
+            return $this->custom_name;
+        }
+
         return apply_filters(
-            'wmb_name_attribute_' . $this->get_arg('name'),
+            'wmb_name_attribute_' . spl_object_hash($this),
             $this->meta_box->prefix . $this->get_arg('name'),
             $this->get_post_id(),
             $this->get_arg('name')
@@ -85,8 +105,12 @@ abstract class OptionAbstract
 
     public function get_value_attribute()
     {
+        if (is_callable($this->custom_value)) {
+            return call_user_func($this->custom_value, $this->get_post_id(), $this->get_arg('name'));
+        }
+
         return apply_filters(
-            'wmb_value_attribute_' . $this->get_arg('name'),
+            'wmb_value_attribute_' . spl_object_hash($this),
             get_post_meta($this->get_post_id(), $this->get_name_attribute(), true),
             $this->get_post_id(),
             $this->get_arg('name')
