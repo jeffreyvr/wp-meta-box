@@ -15,6 +15,7 @@ class WPMetaBox
     public $priority = 'default';
     public $options = [];
     public $styling = true;
+    public $loaded_scripts = [];
 
     public function __construct($title, $post_types = [])
     {
@@ -28,6 +29,18 @@ class WPMetaBox
         $this->styling = false;
 
         return $this;
+    }
+
+    public function script_is_loaded($script)
+    {
+        $this->loaded_scripts[] = $script;
+
+        return $this;
+    }
+
+    public function is_script_loaded($script)
+    {
+        return in_array($script, $this->loaded_scripts);
     }
 
     public function enqueue_styling()
@@ -157,7 +170,11 @@ class WPMetaBox
         // echo '</pre>';
 
         foreach ($this->options as $option) {
+            do_action('wmb_before_option_render', $option);
+
             echo $option->render();
+
+            do_action('wmb_after_option_render', $option);
         }
 
         wp_nonce_field(str_replace('_nonce', '', $this->get_nonce()), $this->get_nonce());

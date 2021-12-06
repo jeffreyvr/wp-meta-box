@@ -32,6 +32,7 @@
 
 .wbm-repeater-container {
     position: relative;
+    overflow: auto;
 }
 
 .wbm-repeater-option-group-header {
@@ -59,6 +60,7 @@
 .wbm-repeater-option-group {
     border: 1px solid #eee;
     display: block;
+    background-color: #fff;
     margin-bottom: 10px;
 }
 

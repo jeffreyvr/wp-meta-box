@@ -34,7 +34,11 @@ class Repeater extends OptionAbstract
 
     public function save()
     {
-        if ($value = $this->get_value_from_request()) {
+        $value = array_filter($this->get_value_from_request(), function($group) {
+            return array_filter($group);
+        });
+
+        if ($value) {
             update_post_meta($this->get_post_id(), $this->get_name_attribute(), array_values($value));
         } else {
             delete_post_meta($this->get_post_id(), $this->get_name_attribute());
@@ -58,18 +62,6 @@ class Repeater extends OptionAbstract
             }
             $count++;
         }
-
-        // foreach (range(0, $iterate) as $option_number) {
-
-        // }
-
-        // foreach ($this->get_value_attribute() as $index => $group_options) {
-        //     foreach ($group_options as $key => $value) {
-        //         if ($option =$this->get_option_by_name($key)) {
-        //             $groups[$index][] = new Option($this->meta_box, $option->type, $option->args);
-        //         }
-        //     }
-        // }
 
         if (empty($groups)) {
             $groups[] = $this->options;

@@ -9,15 +9,11 @@ jQuery(function($){
 
         let container = $(this).closest('.wbm-repeater').find('.wbm-repeater-container');
 
-        let name = container.attr('wbm-repeater-name');
-
         let count = container.find('.wbm-repeater-option-group').length;
-
-        console.log('counting ' + count + ' groups');
 
         let clone = container.find('.wbm-repeater-option-group').first().clone();
 
-        clone.find('input, textarea').each(function(){
+        clone.find('input, textarea, select').each(function(){
             $(this).attr('name', $(this).attr('name').replace('[0]', '['+count+']'));
         });
 
@@ -32,10 +28,8 @@ jQuery(function($){
         $('.wbm-delete').off().on('click', function(e) {
             e.preventDefault();
 
-            console.log('gettinh here');
-
             let container = $(this).closest('.wbm-repeater').find('.wbm-repeater-container');
-            let count = container.closest('.wbm-repeater-option-group').length;
+            let count = container.find('.wbm-repeater-option-group').length;
 
             if(count===1) {
                 wbm_clear_option_group_values($(this).closest('.wbm-repeater-option-group'));
@@ -46,10 +40,14 @@ jQuery(function($){
     }
 
     function wbm_clear_option_group_values(group) {
-        group.find('input, textarea')
-            .val('')
-            .prop('checked', false)
-            .prop('selected', false);
+        group.find('input, textarea, select')
+            .not(':checkbox, :radio')
+            .val('');
+
+        group.find('input').prop('checked', false)
+        group.find('input').prop('selected', false);
+        group.find('.wmb-image-selector-preview').html('');
+
         return group;
     }
 });
