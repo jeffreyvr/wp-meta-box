@@ -19,7 +19,7 @@ composer require jeffreyvanrossum/wp-meta-box
 ```php
 use Jeffreyvr\WPMetaBox\WPMetaBox;
 
-$meta_box = new WPMetaBox(__('My meta box name'));
+$meta_box = WPMetaBox::post('Post settings');
 
 $meta_box->add_option('text', [
     'name' => 'name_of_option',
@@ -27,6 +27,10 @@ $meta_box->add_option('text', [
 ]);
 
 $meta_box->make();
+
+// Or for taxonomies:
+$meta_box = WPMetaBox::taxonomy('Taxonomy settings')
+    ->set_taxonomies(['the_taxonomy']);
 ```
 
 ### Available types
@@ -68,6 +72,15 @@ $meta_box->add_option('checkbox', [
         1 => 'option 1',
         2 => 'option 2'
     ]
+]);
+```
+
+#### Color
+
+```php
+$meta_box->add_option('color', [
+    'name' => 'name_of_option',
+    'label' => __('Label of option', 'textdomain')
 ]);
 ```
 

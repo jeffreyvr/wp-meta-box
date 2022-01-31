@@ -2,6 +2,9 @@
 
 namespace Jeffreyvr\WPMetaBox\Options;
 
+use Jeffreyvr\WPMetaBox\PostMetaBox;
+use Jeffreyvr\WPMetaBox\TaxonomyMetaBox;
+use Jeffreyvr\WPMetaBox\TaxonomyOption;
 use Jeffreyvr\WPMetaBox\WPMetaBox;
 use function Jeffreyvr\WPMetaBox\view as view;
 
@@ -24,6 +27,20 @@ abstract class OptionAbstract
         return $_REQUEST[$this->get_name_attribute()] ?? null;
     }
 
+    public function get_object_id()
+    {
+        if ($this->meta_box instanceof TaxonomyMetaBox) {
+            return $this->get_term_id();
+        }
+
+        return $this->get_post_id();
+    }
+
+    public function get_term_id()
+    {
+        return $_REQUEST['tag_ID'] ?? null;
+    }
+
     public function get_post_id()
     {
         global $post;
@@ -33,16 +50,38 @@ abstract class OptionAbstract
 
     public function save()
     {
+        if ($this->meta_box instanceof PostMetaBox) {
+            $this->savePost();
+        } elseif ($this->meta_box instanceof TaxonomyMetaBox) {
+            $this->saveTaxonomy();
+        }
+    }
+
+    public function savePost()
+    {
         if ($value = $this->get_value_from_request()) {
-            update_post_meta($this->get_post_id(), $this->get_name_attribute(), $value);
+            update_post_meta($this->get_object_id(), $this->get_name_attribute(), $value);
         } else {
-            delete_post_meta($this->get_post_id(), $this->get_name_attribute());
+            delete_post_meta($this->get_object_id(), $this->get_name_attribute());
+        }
+    }
+
+    public function saveTaxonomy()
+    {
+        if ($value = $this->get_value_from_request()) {
+            update_term_meta($this->get_object_id(), $this->get_name_attribute(), $value);
+        } else {
+            delete_term_meta($this->get_object_id(), $this->get_name_attribute());
         }
     }
 
     public function render()
     {
-        return view('options/' . $this->view, ['option' => $this]);
+        if ($this->meta_box instanceof TaxonomyMetaBox) {
+            return view('options/taxonomy/' . $this->view, ['option' => $this]);
+        }
+
+        return view('options/post/' . $this->view, ['option' => $this]);
     }
 
     public function sanitize($value)
@@ -91,14 +130,34 @@ abstract class OptionAbstract
 
     public function get_name_attribute()
     {
-        if($this->custom_name) {
+        if ($this->custom_name) {
             return $this->custom_name;
         }
 
         return apply_filters(
             'wmb_name_attribute_' . spl_object_hash($this),
             $this->meta_box->prefix . $this->get_arg('name'),
-            $this->get_post_id(),
+            $this->get_object_id(),
+            $this->get_arg('name')
+        );
+    }
+
+    public function get_taxonomy_value_attribute()
+    {
+        return apply_filters(
+            'wmb_value_attribute_' . spl_object_hash($this),
+            get_term_meta($this->get_object_id(), $this->get_name_attribute(), true),
+            $this->get_object_id(),
+            $this->get_arg('name')
+        );
+    }
+
+    public function get_post_value_attribute()
+    {
+        return apply_filters(
+            'wmb_value_attribute_' . spl_object_hash($this),
+            get_post_meta($this->get_object_id(), $this->get_name_attribute(), true),
+            $this->get_object_id(),
             $this->get_arg('name')
         );
     }
@@ -106,14 +165,13 @@ abstract class OptionAbstract
     public function get_value_attribute()
     {
         if (is_callable($this->custom_value)) {
-            return call_user_func($this->custom_value, $this->get_post_id(), $this->get_arg('name'));
+            return call_user_func($this->custom_value, $this->get_object_id(), $this->get_arg('name'));
         }
 
-        return apply_filters(
-            'wmb_value_attribute_' . spl_object_hash($this),
-            get_post_meta($this->get_post_id(), $this->get_name_attribute(), true),
-            $this->get_post_id(),
-            $this->get_arg('name')
-        );
+        if ($this->meta_box instanceof TaxonomyMetaBox) {
+            return $this->get_taxonomy_value_attribute();
+        }
+
+        return $this->get_post_value_attribute();
     }
 }

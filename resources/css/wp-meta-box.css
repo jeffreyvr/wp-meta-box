@@ -30,12 +30,12 @@
     border: 1px solid #ddd;
 }
 
-.wbm-repeater-container {
+.wmb-repeater-container {
     position: relative;
     overflow: auto;
 }
 
-.wbm-repeater-option-group-header {
+.wmb-repeater-option-group-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,27 +43,27 @@
     padding: 5px 3px;
 }
 
-.wbm-delete, .wbm-drag {
+.wmb-delete, .wmb-drag {
     border: none;
     background: none;
     -webkit-appearance: none;
 }
 
-.wbm-delete {
+.wmb-delete {
     cursor: pointer;
 }
 
-.wbm-drag {
+.wmb-drag {
     cursor: grab;
 }
 
-.wbm-repeater-option-group {
+.wmb-repeater-option-group {
     border: 1px solid #eee;
     display: block;
     background-color: #fff;
     margin-bottom: 10px;
 }
 
-.wbm-repeater-option-group-content {
+.wmb-repeater-option-group-content {
     padding: 10px;
 }

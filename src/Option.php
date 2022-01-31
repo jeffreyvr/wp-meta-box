@@ -3,6 +3,7 @@
 namespace Jeffreyvr\WPMetaBox;
 
 use Exception;
+use Jeffreyvr\WPMetaBox\Options\Color;
 use Jeffreyvr\WPMetaBox\Options\Text;
 use Jeffreyvr\WPMetaBox\Options\Select;
 use Jeffreyvr\WPMetaBox\Options\Choices;
@@ -20,6 +21,7 @@ class Option
     public $type;
     public $args;
     public $implementation;
+    public $belongs_to;
 
     public function __construct($meta_box, $type, $args = [])
     {
@@ -37,7 +39,8 @@ class Option
             'wp-editor' => WPEditor::class,
             'code-editor' => CodeEditor::class,
             'repeater' => Repeater::class,
-            'image' => Image::class
+            'image' => Image::class,
+	        'color' => Color::class
         ]);
 
         if (empty($type_map[$this->type])) {

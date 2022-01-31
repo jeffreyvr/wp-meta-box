@@ -4,6 +4,7 @@ namespace Jeffreyvr\WPMetaBox\Options;
 
 use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
 
+use Jeffreyvr\WPMetaBox\WPMetaBox;
 use function Jeffreyvr\WPMetaBox\resource_content as resource_content;
 
 class Image extends OptionAbstract
@@ -19,7 +20,7 @@ class Image extends OptionAbstract
 
     public function enqueue()
     {
-        if ($this->meta_box->is_script_loaded('wbm-image-selector')) {
+        if (WPMetaBox::instance()->is_script_loaded('wbm-image-selector')) {
             return;
         }
 
@@ -27,7 +28,7 @@ class Image extends OptionAbstract
         wp_enqueue_script('wbm-image-selector');
         wp_add_inline_script('wbm-image-selector', resource_content('js/wmb-image-selector.js'));
 
-        $this->meta_box->script_is_loaded('wbm-image-selector');
+	    WPMetaBox::instance()->script_is_loaded('wbm-image-selector');
     }
 
     public function sanitize($value)

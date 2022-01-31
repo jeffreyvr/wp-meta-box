@@ -4,6 +4,9 @@ namespace Jeffreyvr\WPMetaBox\Options;
 
 use Jeffreyvr\WPMetaBox\Option;
 use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
+use Jeffreyvr\WPMetaBox\PostMetaBox;
+use Jeffreyvr\WPMetaBox\TaxonomyMetaBox;
+use Jeffreyvr\WPMetaBox\TaxonomyOption;
 
 class Repeater extends OptionAbstract
 {
@@ -39,9 +42,9 @@ class Repeater extends OptionAbstract
         });
 
         if ($value) {
-            update_post_meta($this->get_post_id(), $this->get_name_attribute(), array_values($value));
+            update_post_meta($this->get_object_id(), $this->get_name_attribute(), array_values($value));
         } else {
-            delete_post_meta($this->get_post_id(), $this->get_name_attribute());
+            delete_post_meta($this->get_object_id(), $this->get_name_attribute());
         }
     }
 
@@ -60,7 +63,11 @@ class Repeater extends OptionAbstract
 
         while($count != $iterate) {
             foreach ( $this->options as $option ) {
-                $groups[$count][] = new Option($this->meta_box, $option->type, $option->args);
+                if($this->meta_box instanceof TaxonomyMetaBox) {
+                    $groups[$count][] = new TaxonomyOption($this->meta_box, $option->type, $option->args);
+                } else {
+                    $groups[$count][] = new PostMetaBox($this->meta_box, $option->type, $option->args);
+                }
             }
             $count++;
         }
@@ -97,8 +104,12 @@ class Repeater extends OptionAbstract
             foreach ($options as $option) {
                 $option->implementation->set_custom_name($this->get_name_attribute() . '['.$index.']' . '[' . $option->implementation->get_arg('name') . ']');
 
-                $option->implementation->set_custom_value(function($post_id) use ($repeater, $index, $option) {
-                    $repeater_value = get_post_meta($post_id, $repeater->get_name_attribute(), true);
+                $option->implementation->set_custom_value(function($object_id) use ($repeater, $index, $option) {
+                    if($option instanceof TaxonomyOption) {
+                        $repeater_value = get_term_meta($object_id, $repeater->get_name_attribute(), true);
+                    } else {
+                        $repeater_value = get_post_meta($object_id, $repeater->get_name_attribute(), true);
+                    }
 
                     return $repeater_value[$index][$option->implementation->get_arg('name')] ?? null;
                 });
