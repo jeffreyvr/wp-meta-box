@@ -38,21 +38,25 @@ class TaxonomyMetaBox extends MetaBox
         }
     }
 
-    public function save($term_id)
+    public function save($term_id = null)
     {
+		if ( !$term_id ) {
+			return;
+		}
+
         if (! current_user_can($this->capability)) {
             return $term_id;
         }
 
         foreach ($this->options as $option) {
-            $option->save();
+            $option->save($term_id);
         }
     }
 
     public function render($term, $taxonomy = null)
     {
         if (! current_user_can($this->capability)) {
-            return $term_id;
+            return $term->term_id;
         }
 
         foreach ($this->options as $option) {

@@ -48,12 +48,12 @@ abstract class OptionAbstract
         return $post->ID ?? false;
     }
 
-    public function save()
+    public function save($object_id = null)
     {
         if ($this->meta_box instanceof PostMetaBox) {
             $this->savePost();
         } elseif ($this->meta_box instanceof TaxonomyMetaBox) {
-            $this->saveTaxonomy();
+            $this->saveTaxonomy($object_id);
         }
     }
 
@@ -66,12 +66,12 @@ abstract class OptionAbstract
         }
     }
 
-    public function saveTaxonomy()
+    public function saveTaxonomy($object_id)
     {
         if ($value = $this->get_value_from_request()) {
-            update_term_meta($this->get_object_id(), $this->get_name_attribute(), $value);
+            add_term_meta($object_id, $this->get_name_attribute(), $value);
         } else {
-            delete_term_meta($this->get_object_id(), $this->get_name_attribute());
+            delete_term_meta($object_id, $this->get_name_attribute());
         }
     }
 

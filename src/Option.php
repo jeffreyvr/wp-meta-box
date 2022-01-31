@@ -50,9 +50,9 @@ class Option
         $this->implementation = new $type_map[$this->type]($this->args, $this->meta_box);
     }
 
-    public function save()
+    public function save($object_id = null)
     {
-        return $this->implementation->save();
+        return $this->implementation->save($object_id);
     }
 
     public function render()
