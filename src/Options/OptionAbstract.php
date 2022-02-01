@@ -69,7 +69,7 @@ abstract class OptionAbstract
     public function saveTaxonomy($object_id)
     {
         if ($value = $this->get_value_from_request()) {
-            add_term_meta($object_id, $this->get_name_attribute(), $value);
+            update_term_meta($object_id, $this->get_name_attribute(), $value);
         } else {
             delete_term_meta($object_id, $this->get_name_attribute());
         }
