@@ -3,16 +3,17 @@
 namespace Jeffreyvr\WPMetaBox;
 
 use Exception;
-use Jeffreyvr\WPMetaBox\Options\Color;
 use Jeffreyvr\WPMetaBox\Options\Text;
+use Jeffreyvr\WPMetaBox\Options\Color;
+use Jeffreyvr\WPMetaBox\Options\Image;
+use Jeffreyvr\WPMetaBox\Options\Number;
 use Jeffreyvr\WPMetaBox\Options\Select;
 use Jeffreyvr\WPMetaBox\Options\Choices;
 use Jeffreyvr\WPMetaBox\Options\Checkbox;
-use Jeffreyvr\WPMetaBox\Options\CodeEditor;
-use Jeffreyvr\WPMetaBox\Options\Image;
 use Jeffreyvr\WPMetaBox\Options\Repeater;
 use Jeffreyvr\WPMetaBox\Options\Textarea;
 use Jeffreyvr\WPMetaBox\Options\WPEditor;
+use Jeffreyvr\WPMetaBox\Options\CodeEditor;
 use Jeffreyvr\WPMetaBox\Options\SelectMultiple;
 
 class Option
@@ -30,6 +31,7 @@ class Option
 
         $type_map = apply_filters('wp_meta_box_option_type_map', [
             'text' => Text::class,
+            'number' => Number::class,
             'checkbox' => Checkbox::class,
             'choices' => Choices::class,
             'textarea' => Textarea::class,

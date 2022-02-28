@@ -44,6 +44,15 @@ $meta_box->add_option('text', [
 ]);
 ```
 
+#### Number
+
+```php
+$meta_box->add_option('number', [
+    'name' => 'name_of_option',
+    'label' => __('Label of option', 'textdomain')
+]);
+```
+
 #### Textarea
 
 ```php
