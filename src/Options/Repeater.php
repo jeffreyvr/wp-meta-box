@@ -35,7 +35,7 @@ class Repeater extends OptionAbstract
         return $this;
     }
 
-    public function save()
+    public function save($object_id = null)
     {
         $value = array_filter($this->get_value_from_request(), function($group) {
             return array_filter($group);

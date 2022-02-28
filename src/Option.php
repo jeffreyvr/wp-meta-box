@@ -21,7 +21,6 @@ class Option
     public $type;
     public $args;
     public $implementation;
-    public $belongs_to;
 
     public function __construct($meta_box, $type, $args = [])
     {
