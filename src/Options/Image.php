@@ -24,6 +24,8 @@ class Image extends OptionAbstract
             return;
         }
 
+        wp_enqueue_media();
+
         wp_register_script('wbm-image-selector', false);
         wp_enqueue_script('wbm-image-selector');
         wp_add_inline_script('wbm-image-selector', resource_content('js/wmb-image-selector.js'));
