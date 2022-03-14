@@ -19,4 +19,15 @@ class SelectMultiple extends OptionAbstract
     {
         return $_REQUEST[parent::get_name_attribute()] ?? [];
     }
+
+    public function get_value_attribute()
+    {
+        $value = parent::get_value_attribute();
+
+        if (empty($value)) {
+            return [];
+        }
+
+        return (array) $value;
+    }
 }
