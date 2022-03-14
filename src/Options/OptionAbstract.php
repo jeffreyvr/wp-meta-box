@@ -16,7 +16,7 @@ abstract class OptionAbstract
     public $custom_name = false;
     public $custom_value = false;
 
-    public function __construct($args = [], $meta_box)
+    public function __construct($args, $meta_box)
     {
         $this->args = $args;
         $this->meta_box = $meta_box;
