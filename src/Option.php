@@ -41,7 +41,7 @@ class Option
             'code-editor' => CodeEditor::class,
             'repeater' => Repeater::class,
             'image' => Image::class,
-	        'color' => Color::class
+            'color' => Color::class
         ]);
 
         if (empty($type_map[$this->type])) {
@@ -59,5 +59,14 @@ class Option
     public function render()
     {
         echo $this->implementation->render();
+    }
+
+    public function add_repeater_option($name, $args)
+    {
+        if ($this->implementation instanceof Repeater) {
+            $this->implementation->add_option($name, $args);
+        }
+
+        return $this;
     }
 }

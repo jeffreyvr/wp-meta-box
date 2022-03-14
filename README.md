@@ -155,7 +155,7 @@ Example of a gallery using the repeater option:
 $meta_box->add_option('repeater', [
     'name' => 'gallery',
     'label' => __('Gallery', 'textdomain'),
-])->implementation->add_option('image', [
+])->add_repeater_option('image', [
     'name' => 'image',
     'label' => __('Image', 'textdomain'),
 ]);
