@@ -3,10 +3,13 @@
 namespace Jeffreyvr\WPMetaBox\Options;
 
 use Jeffreyvr\WPMetaBox\Option;
-use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
+use Jeffreyvr\WPMetaBox\WPMetaBox;
+use Jeffreyvr\WPMetaBox\PostOption;
 use Jeffreyvr\WPMetaBox\PostMetaBox;
-use Jeffreyvr\WPMetaBox\TaxonomyMetaBox;
 use Jeffreyvr\WPMetaBox\TaxonomyOption;
+use Jeffreyvr\WPMetaBox\TaxonomyMetaBox;
+use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
+use function Jeffreyvr\WPMetaBox\resource_content as resource_content;
 
 class Repeater extends OptionAbstract
 {
@@ -24,6 +27,16 @@ class Repeater extends OptionAbstract
     public function enqueue()
     {
         wp_enqueue_script( 'jquery-ui-sortable');
+
+        if (WPMetaBox::instance()->is_script_loaded('wmb-repeater')) {
+            return;
+        }
+
+        wp_register_script('wmb-repeater', false);
+        wp_enqueue_script('wmb-repeater');
+        wp_add_inline_script('wmb-repeater', resource_content('js/wmb-repeater.js'));
+
+	    WPMetaBox::instance()->script_is_loaded('wmb-repeater');
     }
 
     public function add_option($type, $args = [])
@@ -66,7 +79,7 @@ class Repeater extends OptionAbstract
                 if($this->meta_box instanceof TaxonomyMetaBox) {
                     $groups[$count][] = new TaxonomyOption($this->meta_box, $option->type, $option->args);
                 } else {
-                    $groups[$count][] = new PostMetaBox($this->meta_box, $option->type, $option->args);
+                    $groups[$count][] = new PostOption($this->meta_box, $option->type, $option->args);
                 }
             }
             $count++;

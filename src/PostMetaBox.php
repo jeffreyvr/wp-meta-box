@@ -29,7 +29,7 @@ class PostMetaBox extends MetaBox
         $post_types = $this->post_types;
         $post_types[] = $post_type;
 
-        $this->set_post_types($post_types);
+        return $this->set_post_types($post_types);
     }
 
     public function set_post_types($post_type)

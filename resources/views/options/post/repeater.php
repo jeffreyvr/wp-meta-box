@@ -1,6 +1,5 @@
 <div class="wmb-input wmb-repeater">
     <label for="<?php echo $option->get_id_attribute(); ?>"><?php echo $option->get_label(); ?></label>
-
     <div>
         <div class="wmb-repeater-container" wmb-repeater-name="<?php echo $option->get_name(); ?>">
             <?php foreach($option->get_options() as $group_options) { ?>

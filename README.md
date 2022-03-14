@@ -19,7 +19,8 @@ composer require jeffreyvanrossum/wp-meta-box
 ```php
 use Jeffreyvr\WPMetaBox\WPMetaBox;
 
-$meta_box = WPMetaBox::post('Post settings');
+$meta_box = WPMetaBox::post('Post settings')
+    ->set_post_type('post');
 
 $meta_box->add_option('text', [
     'name' => 'name_of_option',
@@ -30,7 +31,7 @@ $meta_box->make();
 
 // Or for taxonomies:
 $meta_box = WPMetaBox::taxonomy('Taxonomy settings')
-    ->set_taxonomies(['the_taxonomy']);
+    ->set_taxonomies(['category']);
 ```
 
 ### Available types
@@ -160,7 +161,9 @@ $meta_box->add_option('repeater', [
 ]);
 ```
 
-Not supported within the repeater as of now: `wp-editor`
+## Known limitations
+* Not supported within the repeater as of now: `wp-editor`.
+* Repeater field breaks in the taxonomy edit screen.
 
 ## Contributors
 * [Jeffrey van Rossum](https://github.com/jeffreyvr)

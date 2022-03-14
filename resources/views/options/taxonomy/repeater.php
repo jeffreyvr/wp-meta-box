@@ -19,7 +19,6 @@
                                 <div class="wmb-repeater-option-group-content">
 							        <?php foreach($group_options as $repeater_option) { ?>
 								        <?php
-
 								        do_action('wmb_before_option_render', $repeater_option);
 
 								        echo $repeater_option->render();
