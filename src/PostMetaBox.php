@@ -44,8 +44,27 @@ class PostMetaBox extends MetaBox
         return $this->post_types;
     }
 
+    public function show_for_page_template($template)
+    {
+        $this->add_condition(function () use ($template) {
+            global $post;
+
+            $page_template = get_post_meta($post->ID, '_wp_page_template', true);
+
+            if ($page_template != $template) {
+                return false;
+            }
+
+            return true;
+        });
+
+        return $this;
+    }
+
     public function register()
     {
+        parent::register();
+
         foreach ($this->get_post_types() as $post_type) {
             add_meta_box(
                 $this->id,
@@ -96,7 +115,7 @@ class PostMetaBox extends MetaBox
 
     public function make()
     {
-		$instance = WPMetaBox::instance();
+        $instance = WPMetaBox::instance();
 
         add_action('admin_enqueue_scripts', [$instance, 'enqueue_styling']);
         add_action('admin_enqueue_scripts', [$instance, 'enqueue_script']);

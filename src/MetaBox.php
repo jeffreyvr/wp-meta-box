@@ -13,11 +13,41 @@ class MetaBox
     public $prefix = '_';
     public $capability = 'edit_posts';
     public $options = [];
+    public $conditions = [];
 
     public function __construct($title)
     {
         $this->title = $title;
         $this->id = sanitize_title($this->title);
+    }
+
+    public function register()
+    {
+        if ($this->conditions) {
+            foreach ($this->conditions as $condition) {
+                if (! $condition()) {
+                    return;
+                }
+            }
+        }
+    }
+
+    public function set_conditions($conditions)
+    {
+        $this->conditions = $conditions;
+
+        return $this;
+    }
+
+    public function add_condition($condition)
+    {
+        $conditions = $this->conditions;
+
+        $conditions[] = $condition;
+
+        $this->conditions = $conditions;
+
+        return $this;
     }
 
     public function set_prefix($prefix)

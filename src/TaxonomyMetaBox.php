@@ -30,6 +30,8 @@ class TaxonomyMetaBox extends MetaBox
 
     public function register()
     {
+        parent::register();
+
         foreach ($this->get_taxonomies() as $taxonomy) {
             add_action("{$taxonomy}_edit_form_fields", [$this, 'render'], 10, 2);
             add_action("{$taxonomy}_add_form_fields", [$this, 'render']);
