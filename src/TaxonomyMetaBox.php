@@ -55,6 +55,8 @@ class TaxonomyMetaBox extends MetaBox
         foreach ($this->options as $option) {
             $option->save($term_id);
         }
+
+        do_action('wmb_after_taxonomy_meta_box_save', $term_id, $this);
     }
 
     public function render($term, $taxonomy = null)

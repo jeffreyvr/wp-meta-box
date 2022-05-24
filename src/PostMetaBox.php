@@ -63,7 +63,7 @@ class PostMetaBox extends MetaBox
 
     public function register()
     {
-        if(!$this->should_register()) {
+        if (!$this->should_register()) {
             return;
         }
 
@@ -100,6 +100,8 @@ class PostMetaBox extends MetaBox
         foreach ($this->options as $option) {
             $option->save();
         }
+
+        do_action('wmb_after_post_meta_box_save', $post_id, $this);
     }
 
     public function render($post)
