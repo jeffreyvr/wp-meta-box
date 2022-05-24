@@ -63,7 +63,9 @@ class PostMetaBox extends MetaBox
 
     public function register()
     {
-        parent::register();
+        if(!$this->should_register()) {
+            return;
+        }
 
         foreach ($this->get_post_types() as $post_type) {
             add_meta_box(

@@ -21,15 +21,17 @@ class MetaBox
         $this->id = sanitize_title($this->title);
     }
 
-    public function register()
+    public function should_register()
     {
         if ($this->conditions) {
             foreach ($this->conditions as $condition) {
                 if (! $condition()) {
-                    return;
+                    return false;
                 }
             }
         }
+
+        return true;
     }
 
     public function set_conditions($conditions)
