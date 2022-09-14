@@ -45,6 +45,15 @@ $meta_box->add_option('text', [
 ]);
 ```
 
+#### Date
+
+```php
+$meta_box->add_option('date', [
+    'name' => 'name_of_option',
+    'label' => __('Label of option', 'textdomain')
+]);
+```
+
 #### Number
 
 ```php

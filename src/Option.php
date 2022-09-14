@@ -3,6 +3,7 @@
 namespace Jeffreyvr\WPMetaBox;
 
 use Exception;
+use Jeffreyvr\WPMetaBox\Options\Date;
 use Jeffreyvr\WPMetaBox\Options\Text;
 use Jeffreyvr\WPMetaBox\Options\Color;
 use Jeffreyvr\WPMetaBox\Options\Image;
@@ -31,6 +32,7 @@ class Option
 
         $type_map = apply_filters('wp_meta_box_option_type_map', [
             'text' => Text::class,
+            'date' => Date::class,
             'number' => Number::class,
             'checkbox' => Checkbox::class,
             'choices' => Choices::class,
