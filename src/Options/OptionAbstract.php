@@ -99,6 +99,15 @@ abstract class OptionAbstract
         return $this->args[$key] ?? $fallback;
     }
 
+    public function get_description()
+    {
+        if(is_callable($this->get_arg('description'))) {
+            return $this->get_arg('description')($this);
+        }
+
+        return $this->get_arg('description');
+    }
+
     public function get_label()
     {
         return \esc_attr($this->get_arg('label'));

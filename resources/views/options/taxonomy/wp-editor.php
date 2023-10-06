@@ -20,7 +20,7 @@
                 'quicktags' => $option->get_arg('quicktags', true)
             ]); ?>
 
-            <?php if ($description = $option->get_arg('description')) { ?>
+            <?php if ($description = $option->get_description()) { ?>
                 <p class="description"><?php echo $description; ?></p>
             <?php } ?>
         </td>
@@ -44,7 +44,7 @@
             'quicktags' => $option->get_arg('quicktags', true)
         ]); ?>
 
-        <?php if ($description = $option->get_arg('description')) { ?>
+        <?php if ($description = $option->get_description()) { ?>
             <p class="description"><?php echo $description; ?></p>
         <?php } ?>
     </div>

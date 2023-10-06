@@ -15,7 +15,7 @@
 
                 <a href="#" onclick="return jQuery(this).wmb_image_selector();" class="button wmb-image-selector-trigger"><?php _e('Select Image'); ?></a>
 
-		        <?php if ($description = $option->get_arg('description')) { ?>
+		        <?php if ($description = $option->get_description()) { ?>
                     <p class="wmb-input-description"><?php echo $description; ?></p>
 		        <?php } ?>
             </div>
@@ -36,7 +36,7 @@
 
             <a href="#" onclick="return jQuery(this).wmb_image_selector();" class="button wmb-image-selector-trigger"><?php _e('Select Image'); ?></a>
 
-		    <?php if ($description = $option->get_arg('description')) { ?>
+		    <?php if ($description = $option->get_description()) { ?>
                 <p class="wmb-input-description"><?php echo $description; ?></p>
 		    <?php } ?>
         </div>

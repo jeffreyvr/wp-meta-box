@@ -8,7 +8,7 @@
             <?php } ?>
         </select>
 
-        <?php if ($description = $option->get_arg('description')) { ?>
+        <?php if ($description = $option->get_description()) { ?>
             <p class="wmb-input-description"><?php echo $description; ?></p>
         <?php } ?>
     </div>

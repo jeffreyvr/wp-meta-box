@@ -24,7 +24,8 @@ $meta_box = WPMetaBox::post('Post settings')
 
 $meta_box->add_option('text', [
     'name' => 'name_of_option',
-    'label' => __('Label of option', 'textdomain')
+    'label' => __('Label of option', 'textdomain'),
+    'description' => __('Some additional description')
 ]);
 
 $meta_box->make();
