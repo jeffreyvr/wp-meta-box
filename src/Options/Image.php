@@ -2,40 +2,19 @@
 
 namespace Jeffreyvr\WPMetaBox\Options;
 
-use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
-
-use Jeffreyvr\WPMetaBox\WPMetaBox;
-use function Jeffreyvr\WPMetaBox\resource_content as resource_content;
-
-class Image extends OptionAbstract
+class Image extends Media
 {
-    public $view = 'image';
-
-    public function __construct($section, $args = [])
+    public function media_library_options()
     {
-        add_action('admin_enqueue_scripts', [$this, 'enqueue']);
-
-        parent::__construct($section, $args);
-    }
-
-    public function enqueue()
-    {
-        if (WPMetaBox::instance()->is_script_loaded('wbm-image-selector')) {
-            return;
-        }
-
-        wp_enqueue_media();
-
-        wp_register_script('wbm-image-selector', false);
-        wp_enqueue_script('wbm-image-selector');
-        wp_add_inline_script('wbm-image-selector', resource_content('js/wmb-image-selector.js'));
-
-	    WPMetaBox::instance()->script_is_loaded('wbm-image-selector');
-    }
-
-    public function sanitize($value)
-    {
-        return $value;
+        return [
+            'title' => 'Select image',
+            'button' => [
+                'text' => 'Select image'
+            ],
+            'library' => [
+                'type' => 'image'
+            ]
+        ];
     }
 
     public function get_image_preview_url()

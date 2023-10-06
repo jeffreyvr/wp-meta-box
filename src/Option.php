@@ -15,6 +15,7 @@ use Jeffreyvr\WPMetaBox\Options\Repeater;
 use Jeffreyvr\WPMetaBox\Options\Textarea;
 use Jeffreyvr\WPMetaBox\Options\WPEditor;
 use Jeffreyvr\WPMetaBox\Options\CodeEditor;
+use Jeffreyvr\WPMetaBox\Options\Media;
 use Jeffreyvr\WPMetaBox\Options\SelectMultiple;
 
 class Option
@@ -42,6 +43,7 @@ class Option
             'wp-editor' => WPEditor::class,
             'code-editor' => CodeEditor::class,
             'repeater' => Repeater::class,
+            'media' => Media::class,
             'image' => Image::class,
             'color' => Color::class
         ]);

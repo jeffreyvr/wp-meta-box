@@ -46,7 +46,7 @@ jQuery(function($){
 
         group.find('input').prop('checked', false)
         group.find('input').prop('selected', false);
-        group.find('.wmb-image-selector-preview').html('');
+        group.find('[wmb-media-library\\:preview]').html('');
 
         return group;
     }
