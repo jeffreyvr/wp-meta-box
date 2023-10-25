@@ -41,7 +41,7 @@ class Repeater extends OptionAbstract
 
     public function add_option($type, $args = [])
     {
-        $option = new Option($this->meta_box, $type, $args);
+        $option = new Option($this->meta_box, $type, array_merge($args, ['_parent' => $this]));
 
         $this->options[] = $option;
 
@@ -54,10 +54,18 @@ class Repeater extends OptionAbstract
             return array_filter($group);
         });
 
-        if ($value) {
-            update_post_meta($this->get_object_id(), $this->get_name_attribute(), array_values($value));
+        if($this->meta_box instanceof TaxonomyMetaBox) {
+            if ($value) {
+                update_term_meta($this->get_object_id(), $this->get_name_attribute(), array_values($value));
+            } else {
+                delete_term_meta($this->get_object_id(), $this->get_name_attribute());
+            }
         } else {
-            delete_post_meta($this->get_object_id(), $this->get_name_attribute());
+            if ($value) {
+                update_post_meta($this->get_object_id(), $this->get_name_attribute(), array_values($value));
+            } else {
+                delete_post_meta($this->get_object_id(), $this->get_name_attribute());
+            }
         }
     }
 

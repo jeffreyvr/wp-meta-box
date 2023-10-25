@@ -8,13 +8,16 @@ use function Jeffreyvr\WPMetaBox\resource_content as resource_content;
 
 class Color extends OptionAbstract
 {
-	public $view = 'color';
+	public $view = 'text';
 
 	public function __construct($section, $args = [])
 	{
 		add_action('admin_enqueue_scripts', [$this, 'enqueue']);
 
 		parent::__construct($section, $args);
+
+        $this->args['css']['input_class'] = 'wmb-color-picker';
+        $this->args['type'] = 'text';
 	}
 
 	public function enqueue()

@@ -20,6 +20,8 @@ jQuery(function($){
         container.append(wmb_clear_option_group_values(clone));
 
         wmb_delete_option_group();
+
+        wmb_dispatch_event('wmb-repeater-field-created', {target: clone.get(0)});
     });
 
     wmb_delete_option_group();

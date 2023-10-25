@@ -1,6 +1,6 @@
 {
     "name": "jeffreyvanrossum/wp-meta-box",
-    "description": "Handy wrapper to make creating WordPress meta boxes a breeze.",
+    "description": "Handy package to make creating WordPress meta boxes a breeze.",
     "license": "MIT",
     "authors": [
         {
@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "php": "^7.2|^8.0"
+        "php": "^7.4|^8.0"
     },
     "require-dev": {
         "phpcompatibility/php-compatibility": "*"

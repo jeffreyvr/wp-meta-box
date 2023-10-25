@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
 
             preview.style.display = 'block';
-            unsetButton.style.display = 'inline-block';
+            unsetButton.style.display = 'flex';
             input.value = file.id;
         });
     };
@@ -55,5 +55,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
     libraries.forEach(function(library) {
         wmbMediaLibrary(library, {});
+    });
+
+    document.addEventListener('wmb-repeater-field-created', function(e) {
+        e.detail.target.querySelectorAll('[wmb-media-library]').forEach(function(library) {
+            wmbMediaLibrary(library, {});
+        });
     });
 });

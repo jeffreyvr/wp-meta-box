@@ -77,11 +77,12 @@ abstract class OptionAbstract
 
     public function render()
     {
-        if ($this->meta_box instanceof TaxonomyMetaBox) {
-            return view('options/taxonomy/' . $this->view, ['option' => $this]);
-        }
+        $type = ($this->meta_box instanceof TaxonomyMetaBox && $this->get_arg('_parent') === null) ? 'taxonomy' : 'post';
 
-        return view('options/post/' . $this->view, ['option' => $this]);
+        return view('options/' . $type . '-base', [
+            'slot' => view('options/' . $this->view, ['option' => $this], true),
+            'option' => $this
+        ], true);
     }
 
     public function sanitize($value)
@@ -101,7 +102,7 @@ abstract class OptionAbstract
 
     public function get_description()
     {
-        if(is_callable($this->get_arg('description'))) {
+        if (is_callable($this->get_arg('description'))) {
             return $this->get_arg('description')($this);
         }
 
@@ -113,9 +114,57 @@ abstract class OptionAbstract
         return \esc_attr($this->get_arg('label'));
     }
 
+    public function get_input_attributes_string($attributes = [])
+    {
+        $attributes = wp_parse_args([
+            'id' => $this->get_id_attribute(),
+            'name' => $this->get_name_attribute(),
+        ], $attributes);
+
+        if ($class = $this->get_css('input_class')) {
+            $attributes['class'] = $class;
+        }
+
+        if ($type = $this->get_arg('type')) {
+            $attributes['type'] = $type;
+        }
+
+        if ($this->get_arg('required')) {
+            $attributes['required'] = 'required';
+        }
+
+        return implode(' ', array_map(function ($key, $value) {
+            return $key . '="' . esc_attr($value) . '"';
+        }, array_keys($attributes), $attributes));
+    }
+
     public function get_id_attribute()
     {
         return $this->get_arg('id', sanitize_title($this->get_name_attribute()));
+    }
+
+    public function get_css($key = null)
+    {
+        if ($key) {
+            return esc_attr($this->get_arg('css', [])[$key] ?? null);
+        }
+
+        return $this->get_arg('css', []);
+    }
+
+    public function get_label_class_attribute()
+    {
+        return $this->get_css('label_class');
+    }
+
+    public function get_group_class_attribute()
+    {
+        return $this->get_css('group_class');
+    }
+
+    public function get_input_class_attribute()
+    {
+        return $this->get_css('input_class');
     }
 
     public function get_name()

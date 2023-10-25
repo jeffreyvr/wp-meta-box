@@ -40,7 +40,7 @@
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #eee;
-    padding: 5px 3px;
+    padding: 4px 8px;
 }
 
 .wmb-delete, .wmb-drag {
@@ -62,6 +62,7 @@
     display: block;
     background-color: #fff;
     margin-bottom: 10px;
+    border-radius: 5px;
 }
 
 .wmb-repeater-option-group-content {
