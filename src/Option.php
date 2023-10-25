@@ -3,26 +3,29 @@
 namespace Jeffreyvr\WPMetaBox;
 
 use Exception;
-use Jeffreyvr\WPMetaBox\Options\Date;
-use Jeffreyvr\WPMetaBox\Options\Text;
-use Jeffreyvr\WPMetaBox\Options\Color;
-use Jeffreyvr\WPMetaBox\Options\Image;
-use Jeffreyvr\WPMetaBox\Options\Number;
-use Jeffreyvr\WPMetaBox\Options\Select;
-use Jeffreyvr\WPMetaBox\Options\Choices;
 use Jeffreyvr\WPMetaBox\Options\Checkbox;
+use Jeffreyvr\WPMetaBox\Options\Choices;
+use Jeffreyvr\WPMetaBox\Options\CodeEditor;
+use Jeffreyvr\WPMetaBox\Options\Color;
+use Jeffreyvr\WPMetaBox\Options\Date;
+use Jeffreyvr\WPMetaBox\Options\Image;
+use Jeffreyvr\WPMetaBox\Options\Media;
+use Jeffreyvr\WPMetaBox\Options\Number;
 use Jeffreyvr\WPMetaBox\Options\Repeater;
+use Jeffreyvr\WPMetaBox\Options\Select;
+use Jeffreyvr\WPMetaBox\Options\SelectMultiple;
+use Jeffreyvr\WPMetaBox\Options\Text;
 use Jeffreyvr\WPMetaBox\Options\Textarea;
 use Jeffreyvr\WPMetaBox\Options\WPEditor;
-use Jeffreyvr\WPMetaBox\Options\CodeEditor;
-use Jeffreyvr\WPMetaBox\Options\Media;
-use Jeffreyvr\WPMetaBox\Options\SelectMultiple;
 
 class Option
 {
     public $meta_box;
+
     public $type;
+
     public $args;
+
     public $implementation;
 
     public function __construct($meta_box, $type, $args = [])
@@ -45,7 +48,7 @@ class Option
             'repeater' => Repeater::class,
             'media' => Media::class,
             'image' => Image::class,
-            'color' => Color::class
+            'color' => Color::class,
         ]);
 
         if (empty($type_map[$this->type])) {

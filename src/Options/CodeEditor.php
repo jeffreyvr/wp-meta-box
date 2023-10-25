@@ -2,11 +2,10 @@
 
 namespace Jeffreyvr\WPMetaBox\Options;
 
-use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
-
 class CodeEditor extends OptionAbstract
 {
     public $view = 'code-editor';
+
     public $code_mirror_settings_name;
 
     public function __construct($section, $args = [])
@@ -24,7 +23,7 @@ class CodeEditor extends OptionAbstract
         $this->code_mirror_settings_name = str_replace('-', '_', $this->get_id_attribute());
 
         wp_localize_script('jquery', $this->code_mirror_settings_name, wp_enqueue_code_editor(['type' => $this->get_arg('editor_type', 'text/html'), 'codemirror' => [
-            'autoRefresh' => true
+            'autoRefresh' => true,
         ]]));
     }
 

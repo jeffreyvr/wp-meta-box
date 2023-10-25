@@ -4,16 +4,19 @@ namespace Jeffreyvr\WPMetaBox\Options;
 
 use Jeffreyvr\WPMetaBox\PostMetaBox;
 use Jeffreyvr\WPMetaBox\TaxonomyMetaBox;
-use Jeffreyvr\WPMetaBox\TaxonomyOption;
-use Jeffreyvr\WPMetaBox\WPMetaBox;
+
 use function Jeffreyvr\WPMetaBox\view as view;
 
 abstract class OptionAbstract
 {
     public $meta_box;
+
     public $args = [];
+
     public $view;
+
     public $custom_name = false;
+
     public $custom_value = false;
 
     public function __construct($args, $meta_box)
@@ -79,9 +82,9 @@ abstract class OptionAbstract
     {
         $type = ($this->meta_box instanceof TaxonomyMetaBox && $this->get_arg('_parent') === null) ? 'taxonomy' : 'post';
 
-        return view('options/' . $type . '-base', [
-            'slot' => view('options/' . $this->view, ['option' => $this], true),
-            'option' => $this
+        return view('options/'.$type.'-base', [
+            'slot' => view('options/'.$this->view, ['option' => $this], true),
+            'option' => $this,
         ], true);
     }
 
@@ -134,7 +137,7 @@ abstract class OptionAbstract
         }
 
         return implode(' ', array_map(function ($key, $value) {
-            return $key . '="' . esc_attr($value) . '"';
+            return $key.'="'.esc_attr($value).'"';
         }, array_keys($attributes), $attributes));
     }
 
@@ -193,8 +196,8 @@ abstract class OptionAbstract
         }
 
         return apply_filters(
-            'wmb_name_attribute_' . spl_object_hash($this),
-            $this->meta_box->prefix . $this->get_arg('name'),
+            'wmb_name_attribute_'.spl_object_hash($this),
+            $this->meta_box->prefix.$this->get_arg('name'),
             $this->get_object_id(),
             $this->get_arg('name')
         );
@@ -203,7 +206,7 @@ abstract class OptionAbstract
     public function get_taxonomy_value_attribute()
     {
         return apply_filters(
-            'wmb_value_attribute_' . spl_object_hash($this),
+            'wmb_value_attribute_'.spl_object_hash($this),
             get_term_meta($this->get_object_id(), $this->get_name_attribute(), true),
             $this->get_object_id(),
             $this->get_arg('name')
@@ -213,7 +216,7 @@ abstract class OptionAbstract
     public function get_post_value_attribute()
     {
         return apply_filters(
-            'wmb_value_attribute_' . spl_object_hash($this),
+            'wmb_value_attribute_'.spl_object_hash($this),
             get_post_meta($this->get_object_id(), $this->get_name_attribute(), true),
             $this->get_object_id(),
             $this->get_arg('name')

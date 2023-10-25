@@ -2,16 +2,17 @@
 
 namespace Jeffreyvr\WPMetaBox;
 
-use Jeffreyvr\WPMetaBox\Option;
-use Jeffreyvr\WPMetaBox\PostMetaBox;
-use Jeffreyvr\WPMetaBox\TaxonomyMetaBox;
 
 class WPMetaBox
 {
     public $styling = true;
+
     public $loaded_scripts = [];
+
     private static $instance;
+
     public $styling_loaded = false;
+
     public $scripts_loaded = false;
 
     public static function taxonomy($title)
@@ -26,7 +27,7 @@ class WPMetaBox
 
     public static function instance()
     {
-        if (!self::$instance instanceof WPMetaBox) {
+        if (! self::$instance instanceof WPMetaBox) {
             self::$instance = new WPMetaBox();
         }
 

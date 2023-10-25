@@ -3,18 +3,19 @@
 namespace Jeffreyvr\WPMetaBox\Options;
 
 use Jeffreyvr\WPMetaBox\Option;
-use Jeffreyvr\WPMetaBox\WPMetaBox;
 use Jeffreyvr\WPMetaBox\PostOption;
-use Jeffreyvr\WPMetaBox\PostMetaBox;
-use Jeffreyvr\WPMetaBox\TaxonomyOption;
 use Jeffreyvr\WPMetaBox\TaxonomyMetaBox;
-use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
+use Jeffreyvr\WPMetaBox\TaxonomyOption;
+use Jeffreyvr\WPMetaBox\WPMetaBox;
+
 use function Jeffreyvr\WPMetaBox\resource_content as resource_content;
 
 class Repeater extends OptionAbstract
 {
     public $view = 'repeater';
+
     public $options = [];
+
     public $groups_set = false;
 
     public function __construct($section, $args = [])
@@ -26,7 +27,7 @@ class Repeater extends OptionAbstract
 
     public function enqueue()
     {
-        wp_enqueue_script( 'jquery-ui-sortable');
+        wp_enqueue_script('jquery-ui-sortable');
 
         if (WPMetaBox::instance()->is_script_loaded('wmb-repeater')) {
             return;
@@ -36,7 +37,7 @@ class Repeater extends OptionAbstract
         wp_enqueue_script('wmb-repeater');
         wp_add_inline_script('wmb-repeater', resource_content('js/wmb-repeater.js'));
 
-	    WPMetaBox::instance()->script_is_loaded('wmb-repeater');
+        WPMetaBox::instance()->script_is_loaded('wmb-repeater');
     }
 
     public function add_option($type, $args = [])
@@ -50,11 +51,11 @@ class Repeater extends OptionAbstract
 
     public function save($object_id = null)
     {
-        $value = array_filter($this->get_value_from_request(), function($group) {
+        $value = array_filter($this->get_value_from_request(), function ($group) {
             return array_filter($group);
         });
 
-        if($this->meta_box instanceof TaxonomyMetaBox) {
+        if ($this->meta_box instanceof TaxonomyMetaBox) {
             if ($value) {
                 update_term_meta($this->get_object_id(), $this->get_name_attribute(), array_values($value));
             } else {
@@ -73,18 +74,18 @@ class Repeater extends OptionAbstract
     {
         $groups = [];
 
-        if (!empty($this->groups_set)) {
+        if (! empty($this->groups_set)) {
             return $this->groups_set;
         }
 
         $value = $this->get_value_attribute();
 
-        $iterate = !empty($value) ? count($value) : 1;
+        $iterate = ! empty($value) ? count($value) : 1;
         $count = 0;
 
-        while($count != $iterate) {
-            foreach ( $this->options as $option ) {
-                if($this->meta_box instanceof TaxonomyMetaBox) {
+        while ($count != $iterate) {
+            foreach ($this->options as $option) {
+                if ($this->meta_box instanceof TaxonomyMetaBox) {
                     $groups[$count][] = new TaxonomyOption($this->meta_box, $option->type, $option->args);
                 } else {
                     $groups[$count][] = new PostOption($this->meta_box, $option->type, $option->args);
@@ -113,6 +114,7 @@ class Repeater extends OptionAbstract
                 return $option;
             }
         }
+
         return false;
     }
 
@@ -123,10 +125,10 @@ class Repeater extends OptionAbstract
 
         foreach ($groups as $index => $options) {
             foreach ($options as $option) {
-                $option->implementation->set_custom_name($this->get_name_attribute() . '['.$index.']' . '[' . $option->implementation->get_arg('name') . ']');
+                $option->implementation->set_custom_name($this->get_name_attribute().'['.$index.']'.'['.$option->implementation->get_arg('name').']');
 
-                $option->implementation->set_custom_value(function($object_id) use ($repeater, $index, $option) {
-                    if($option instanceof TaxonomyOption) {
+                $option->implementation->set_custom_value(function ($object_id) use ($repeater, $index, $option) {
+                    if ($option instanceof TaxonomyOption) {
                         $repeater_value = get_term_meta($object_id, $repeater->get_name_attribute(), true);
                     } else {
                         $repeater_value = get_post_meta($object_id, $repeater->get_name_attribute(), true);

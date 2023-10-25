@@ -2,12 +2,12 @@
 
 namespace Jeffreyvr\WPMetaBox;
 
-use Jeffreyvr\WPMetaBox\MetaBox;
-
 class PostMetaBox extends MetaBox
 {
     public $post_types;
+
     public $context = 'advanced';
+
     public $priority = 'default';
 
     public function set_context($context)
@@ -63,7 +63,7 @@ class PostMetaBox extends MetaBox
 
     public function register()
     {
-        if (!$this->should_register()) {
+        if (! $this->should_register()) {
             return;
         }
 
@@ -96,7 +96,6 @@ class PostMetaBox extends MetaBox
         if (! current_user_can($this->capability)) {
             return $post_id;
         }
-
 
         foreach ($this->options as $option) {
             $option->save();

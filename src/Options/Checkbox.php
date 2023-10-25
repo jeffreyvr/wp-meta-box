@@ -2,8 +2,6 @@
 
 namespace Jeffreyvr\WPMetaBox\Options;
 
-use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
-
 class Checkbox extends OptionAbstract
 {
     public $view = 'checkbox';

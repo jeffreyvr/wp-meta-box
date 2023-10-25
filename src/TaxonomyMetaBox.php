@@ -2,8 +2,6 @@
 
 namespace Jeffreyvr\WPMetaBox;
 
-use Jeffreyvr\WPMetaBox\MetaBox;
-
 class TaxonomyMetaBox extends MetaBox
 {
     public $taxonomies = [];
@@ -30,7 +28,7 @@ class TaxonomyMetaBox extends MetaBox
 
     public function register()
     {
-        if(!$this->should_register()) {
+        if (! $this->should_register()) {
             return;
         }
 
@@ -44,9 +42,9 @@ class TaxonomyMetaBox extends MetaBox
 
     public function save($term_id = null)
     {
-		if ( !$term_id ) {
-			return;
-		}
+        if (! $term_id) {
+            return;
+        }
 
         if (! current_user_can($this->capability)) {
             return $term_id;
@@ -76,10 +74,10 @@ class TaxonomyMetaBox extends MetaBox
 
     public function make()
     {
-	    $instance = WPMetaBox::instance();
+        $instance = WPMetaBox::instance();
 
         add_action('admin_enqueue_scripts', [$instance, 'enqueue_styling']);
-	    add_action('admin_enqueue_scripts', [$instance, 'enqueue_script']);
+        add_action('admin_enqueue_scripts', [$instance, 'enqueue_script']);
 
         $this->register();
     }

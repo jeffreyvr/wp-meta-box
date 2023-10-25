@@ -2,9 +2,8 @@
 
 namespace Jeffreyvr\WPMetaBox\Options;
 
-use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
-
 use Jeffreyvr\WPMetaBox\WPMetaBox;
+
 use function Jeffreyvr\WPMetaBox\resource_content as resource_content;
 
 class Media extends OptionAbstract
