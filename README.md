@@ -2,7 +2,7 @@
 
 This package aims to make it easier to create meta boxes for WordPress plugins.
 
-## ⚠️ Untill the first stable release, the API is subject to change. Use at your own risk.
+> ⚠️ Untill the first stable release, the API is subject to change. Use at your own risk.
 
 ## Installation
 
