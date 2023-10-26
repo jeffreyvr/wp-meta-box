@@ -15,6 +15,8 @@ class WPMetaBox
 
     public $scripts_loaded = false;
 
+    public Enqueuer|null $enqueuer = null;
+
     public static function taxonomy($title)
     {
         return new TaxonomyMetaBox($title);
@@ -32,6 +34,11 @@ class WPMetaBox
         }
 
         return self::$instance;
+    }
+
+    public function __construct()
+    {
+        $this->enqueuer = Enqueuer::setEnqueueManager(new EnqueueManager);
     }
 
     public function disable_styling()

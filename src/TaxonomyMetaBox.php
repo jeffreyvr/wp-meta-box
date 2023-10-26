@@ -63,6 +63,8 @@ class TaxonomyMetaBox extends MetaBox
             return $term->term_id;
         }
 
+        Enqueuer::enqueue();
+
         foreach ($this->options as $option) {
             do_action('wmb_before_option_render', $option);
 
