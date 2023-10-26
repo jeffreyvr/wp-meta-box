@@ -78,8 +78,7 @@ class TaxonomyMetaBox extends MetaBox
     {
         $instance = WPMetaBox::instance();
 
-        add_action('admin_enqueue_scripts', [$instance, 'enqueue_styling']);
-        add_action('admin_enqueue_scripts', [$instance, 'enqueue_script']);
+        add_action('admin_enqueue_scripts', [$instance, 'enqueue_scripts']);
 
         $this->register();
     }

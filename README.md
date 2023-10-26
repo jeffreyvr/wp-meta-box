@@ -2,9 +2,7 @@
 
 This package aims to make it easier to create meta boxes for WordPress plugins.
 
-## ⚠️ Under development
-
-As long as this package is still in development, the API might be subject to change and should not considered stable. Use at your own risk.
+## ⚠️ Untill the first stable release, the API is subject to change. Use at your own risk.
 
 ## Installation
 
@@ -130,6 +128,15 @@ $meta_box->add_option('select-multiple', [
 ]);
 ```
 
+#### Media
+
+```php
+$meta_box->add_option('media', [
+    'name' => 'name_of_option',
+    'label' => __('Label of option', 'textdomain')
+]);
+```
+
 #### Image
 
 ```php
@@ -157,6 +164,8 @@ $meta_box->add_option('wp-editor', [
 ]);
 ```
 
+You can provide a `config` array to customize the editor. For more information on this config check out the [wp.editor documentation](https://codex.wordpress.org/Javascript_Reference/wp.editor).
+
 #### Repeater
 
 Example of a gallery using the repeater option:
@@ -170,10 +179,6 @@ $meta_box->add_option('repeater', [
     'label' => __('Image', 'textdomain'),
 ]);
 ```
-
-## Known limitations
-* Not supported within the repeater as of now: `wp-editor`.
-* Repeater field breaks in the taxonomy edit screen.
 
 ## Contributors
 * [Jeffrey van Rossum](https://github.com/jeffreyvr)

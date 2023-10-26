@@ -50,6 +50,8 @@ jQuery(function($){
             } else {
                 $(this).closest('.wmb-repeater-option-group').remove();
             }
+
+            wmb_dispatch_event('wmb-repeater-field-deleted', {container: container.get(0), target: $(this).closest('.wmb-repeater-option-group').get(0)});
         });
     }
 

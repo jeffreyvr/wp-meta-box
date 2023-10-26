@@ -29,7 +29,8 @@ class WPEditor extends OptionAbstract
 
     public function get_id_attribute()
     {
-        return parent::get_id_attribute() . '-' . esc_attr(wp_generate_password(6, false, false));
+        // Make sure the id is unique
+        return parent::get_id_attribute().'-'.esc_attr(wp_generate_password(6, false, false));
     }
 
     public function get_input_attributes_string($attributes = [])
@@ -38,10 +39,6 @@ class WPEditor extends OptionAbstract
             'id' => $this->get_id_attribute(),
             'name' => $this->get_name_attribute(),
         ], $attributes);
-
-        if ($class = $this->get_css('input_class')) {
-            $attributes['class'] = $class;
-        }
 
         if ($class = $this->get_css('input_class')) {
             $attributes['class'] = $class;

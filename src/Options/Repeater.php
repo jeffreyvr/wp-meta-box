@@ -2,13 +2,12 @@
 
 namespace Jeffreyvr\WPMetaBox\Options;
 
-use Jeffreyvr\WPMetaBox\Option;
 use Jeffreyvr\WPMetaBox\Enqueuer;
-use Jeffreyvr\WPMetaBox\WPMetaBox;
+use Jeffreyvr\WPMetaBox\Option;
 use Jeffreyvr\WPMetaBox\PostOption;
+use Jeffreyvr\WPMetaBox\TaxonomyMetaBox;
 use Jeffreyvr\WPMetaBox\TaxonomyOption;
 
-use Jeffreyvr\WPMetaBox\TaxonomyMetaBox;
 use function Jeffreyvr\WPMetaBox\resource_content as resource_content;
 
 class Repeater extends OptionAbstract

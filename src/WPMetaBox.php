@@ -2,7 +2,6 @@
 
 namespace Jeffreyvr\WPMetaBox;
 
-
 class WPMetaBox
 {
     public $styling = true;
@@ -15,7 +14,7 @@ class WPMetaBox
 
     public $scripts_loaded = false;
 
-    public Enqueuer|null $enqueuer = null;
+    public ?Enqueuer $enqueuer = null;
 
     public static function taxonomy($title)
     {
@@ -48,43 +47,18 @@ class WPMetaBox
         return $this;
     }
 
-    public function script_is_loaded($script)
+    public function enqueue_scripts()
     {
-        $this->loaded_scripts[] = $script;
+        Enqueuer::add('wp-meta-box', function () {
+            wp_register_script('wp-meta-box', false);
+            wp_enqueue_script('wp-meta-box');
 
-        return $this;
-    }
+            wp_add_inline_script('wp-meta-box', resource_content('js/wp-meta-box.js'));
 
-    public function is_script_loaded($script)
-    {
-        return in_array($script, $this->loaded_scripts);
-    }
+            wp_register_style('wp-meta-box', false);
+            wp_enqueue_style('wp-meta-box');
 
-    public function enqueue_styling()
-    {
-        if ($this->styling_loaded) {
-            return;
-        }
-
-        wp_register_style('wp-meta-box', false);
-        wp_enqueue_style('wp-meta-box');
-
-        wp_add_inline_style('wp-meta-box', resource_content('css/wp-meta-box.css'));
-
-        $this->styling_loaded = true;
-    }
-
-    public function enqueue_script()
-    {
-        if ($this->scripts_loaded) {
-            return;
-        }
-
-        wp_register_script('wp-meta-box', false);
-        wp_enqueue_script('wp-meta-box');
-
-        wp_add_inline_script('wp-meta-box', resource_content('js/wp-meta-box.js'));
-
-        $this->scripts_loaded = true;
+            wp_add_inline_style('wp-meta-box', resource_content('css/wp-meta-box.css'));
+        });
     }
 }
