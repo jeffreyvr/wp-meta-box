@@ -14,6 +14,11 @@ class WmbWPEditor {
             tinymce: {
                 theme: 'modern',
                 plugins: 'link lists',
+                init_instance_callback: (_editor) => {
+                    _editor.on('change', function () {
+                        editor.value = _editor.getContent();
+                    });
+                }
             },
             mediaButtons: true,
             quicktags: true,

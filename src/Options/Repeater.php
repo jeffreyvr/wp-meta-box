@@ -52,9 +52,9 @@ class Repeater extends OptionAbstract
 
         if ($this->meta_box instanceof TaxonomyMetaBox) {
             if ($value) {
-                update_term_meta($this->get_object_id(), $this->get_name_attribute(), array_values($value));
+                update_term_meta($object_id, $this->get_name_attribute(), array_values($value));
             } else {
-                delete_term_meta($this->get_object_id(), $this->get_name_attribute());
+                delete_term_meta($object_id, $this->get_name_attribute());
             }
         } else {
             if ($value) {
