@@ -2,8 +2,6 @@
 
 namespace Jeffreyvr\WPMetaBox\Options;
 
-use Jeffreyvr\WPMetaBox\Options\OptionAbstract;
-
 class Select extends OptionAbstract
 {
     public $view = 'select';

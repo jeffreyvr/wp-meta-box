@@ -9,11 +9,11 @@ class Image extends Media
         return [
             'title' => 'Select image',
             'button' => [
-                'text' => 'Select image'
+                'text' => 'Select image',
             ],
             'library' => [
-                'type' => 'image'
-            ]
+                'type' => 'image',
+            ],
         ];
     }
 
