@@ -4,6 +4,15 @@ All notable changes to `wp-meta-box` will be documented in this file
 
 ## Unreleased
 
+-
+
+## 0.2.1
+
+- fix not being able to change the input type (Text)
+- allow all input attributes to be set through `input_attributes`
+
+## 0.2.0
+
 - major refactor to allow for one view file per option, instead of two using a table and div base wrapper (potential breaking change)
 - number, date and color now use the text view
 - fixing repeatable fields work with taxonomies

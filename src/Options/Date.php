@@ -8,8 +8,8 @@ class Date extends OptionAbstract
 
     public function __construct($args, $meta_box)
     {
-        parent::__construct($args, $meta_box);
+        $this->default_args['type'] = 'date';
 
-        $this->args['type'] = 'date';
+        parent::__construct($args, $meta_box);
     }
 }

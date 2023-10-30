@@ -14,10 +14,10 @@ class Color extends OptionAbstract
     {
         add_action('admin_enqueue_scripts', [$this, 'enqueue']);
 
-        parent::__construct($section, $args);
+        $this->default_args['css']['input_class'] = 'wmb-color-picker';
+        $this->default_args['type'] = 'text';
 
-        $this->args['css']['input_class'] = 'wmb-color-picker';
-        $this->args['type'] = 'text';
+        parent::__construct($section, $args);
     }
 
     public function enqueue()

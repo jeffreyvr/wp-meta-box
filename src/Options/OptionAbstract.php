@@ -13,6 +13,10 @@ abstract class OptionAbstract
 
     public $args = [];
 
+    public $default_args = [];
+
+    public $input_attributes = [];
+
     public $view;
 
     public $custom_name = false;
@@ -21,8 +25,14 @@ abstract class OptionAbstract
 
     public function __construct($args, $meta_box)
     {
-        $this->args = $args;
+        $this->args = array_merge($this->default_args, $args);
+
         $this->meta_box = $meta_box;
+
+        $this->input_attributes = $this->get_arg('input_attributes', [
+            'id' => $this->get_id_attribute(),
+            'name' => $this->get_name_attribute(),
+        ]);
     }
 
     public function get_value_from_request()
@@ -119,11 +129,6 @@ abstract class OptionAbstract
 
     public function get_input_attributes_string($attributes = [])
     {
-        $attributes = wp_parse_args([
-            'id' => $this->get_id_attribute(),
-            'name' => $this->get_name_attribute(),
-        ], $attributes);
-
         if ($class = $this->get_css('input_class')) {
             $attributes['class'] = $class;
         }
@@ -135,6 +140,8 @@ abstract class OptionAbstract
         if ($this->get_arg('required')) {
             $attributes['required'] = 'required';
         }
+
+        $attributes = wp_parse_args($this->input_attributes, $attributes);
 
         return implode(' ', array_map(function ($key, $value) {
             return $key.'="'.esc_attr($value).'"';

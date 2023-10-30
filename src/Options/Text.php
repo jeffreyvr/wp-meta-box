@@ -8,8 +8,8 @@ class Text extends OptionAbstract
 
     public function __construct($args, $meta_box)
     {
-        parent::__construct($args, $meta_box);
+        $this->default_args['type'] = 'text';
 
-        $this->args['type'] = 'text';
+        parent::__construct($args, $meta_box);
     }
 }

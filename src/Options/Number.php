@@ -8,8 +8,8 @@ class Number extends OptionAbstract
 
     public function __construct($args, $meta_box)
     {
-        parent::__construct($args, $meta_box);
+        $this->default_args['type'] = 'number';
 
-        $this->args['type'] = 'number';
+        parent::__construct($args, $meta_box);
     }
 }
