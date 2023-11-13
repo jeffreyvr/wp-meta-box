@@ -35,6 +35,11 @@ abstract class OptionAbstract
         ]);
     }
 
+    public function generate_hash()
+    {
+        return md5($this->get_input_attributes_string());
+    }
+
     public function get_value_from_request()
     {
         return $_REQUEST[$this->get_name_attribute()] ?? null;
@@ -143,9 +148,15 @@ abstract class OptionAbstract
 
         $attributes = wp_parse_args($this->input_attributes, $attributes);
 
-        return implode(' ', array_map(function ($key, $value) {
+        if(!empty($attributes['name'])) {
+            $attributes['name'] = $this->get_name_attribute();
+        }
+
+        $string = implode(' ', array_map(function ($key, $value) {
             return $key.'="'.esc_attr($value).'"';
         }, array_keys($attributes), $attributes));
+
+        return $string;
     }
 
     public function get_id_attribute()

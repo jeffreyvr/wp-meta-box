@@ -58,11 +58,10 @@
 }
 
 .wmb-repeater-option-group {
-    border: 1px solid #eee;
+    border: 1px solid #ddd;
     display: block;
     background-color: #fff;
     margin-bottom: 10px;
-    border-radius: 5px;
 }
 
 .wmb-repeater-option-group-content {

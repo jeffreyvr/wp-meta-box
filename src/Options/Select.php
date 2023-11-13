@@ -8,6 +8,12 @@ class Select extends OptionAbstract
 
     public function get_options()
     {
-        return $this->get_arg('options', []);
+        $options = $this->get_arg('options', []);
+
+        if(is_callable($options)) {
+            return $options();
+        }
+
+        return $options;
     }
 }

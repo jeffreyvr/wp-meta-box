@@ -39,17 +39,3 @@ document.addEventListener('wmb-repeater-field-created', function (e) {
         wmbCodeEditor(editor);
     }
 });
-
-// jQuery(function($){
-//     wp.codeEditor.initialize($("#<?php echo $option->get_id_attribute(); ?>"), <?php echo $option->code_mirror_settings_name; ?>);
-
-// wp.data.subscribe(function () {
-//     let editor = $("#<?php echo $option->get_id_attribute(); ?>");
-
-//     if (editor.length === 0) {
-//         return;
-//     }
-
-//     editor.next(".CodeMirror").get(0).CodeMirror.save();
-// });
-// });
