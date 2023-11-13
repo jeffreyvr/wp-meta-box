@@ -6,12 +6,23 @@ class TaxonomyMetaBox extends MetaBox
 {
     public $taxonomies = [];
 
+    public $contexts = ['create', 'edit'];
+
     public function set_taxonomy($taxonomy)
     {
         $taxonomy = $this->taxonomies;
         $taxonomies[] = $taxonomy;
 
         $this->set_taxonomies($taxonomies);
+
+        return $this;
+    }
+
+    public function set_contexts($contexts)
+    {
+        $this->contexts = (array) $contexts;
+
+        return $this;
     }
 
     public function set_taxonomies($taxonomy)
@@ -33,10 +44,15 @@ class TaxonomyMetaBox extends MetaBox
         }
 
         foreach ($this->get_taxonomies() as $taxonomy) {
-            add_action("{$taxonomy}_edit_form_fields", [$this, 'render'], 10, 2);
-            add_action("{$taxonomy}_add_form_fields", [$this, 'render']);
-            add_action("created_{$taxonomy}", [$this, 'save']);
-            add_action("edited_{$taxonomy}", [$this, 'save']);
+            if(in_array('create', $this->contexts)) {
+                add_action("{$taxonomy}_add_form_fields", [$this, 'render']);
+                add_action("created_{$taxonomy}", [$this, 'save']);
+            }
+
+            if(in_array('edit', $this->contexts)) {
+                add_action("{$taxonomy}_edit_form_fields", [$this, 'render'], 10, 2);
+                add_action("edited_{$taxonomy}", [$this, 'save']);
+            }
         }
     }
 
