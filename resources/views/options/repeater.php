@@ -23,5 +23,5 @@
             </div>
         <?php } ?>
     </div>
-    <button type="button" class="wmb-repeat components-button is-secondary is-small">+ Add Row</button>
+    <button type="button" class="wmb-repeat components-button is-secondary is-small"><?php echo $option->get_arg('repeater_add_button_text', '+ Add Row'); ?></button>
 </div>

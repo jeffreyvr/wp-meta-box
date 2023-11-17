@@ -4,7 +4,10 @@ All notable changes to `wp-meta-box` will be documented in this file
 
 ## Unreleased
 
--
+## 0.3.0
+
+- for taxonomy meta box, allow to set contexts (`create` and `edit`) to control when the options should be shown.
+- allow repeater add button text to be overwritten through `repeater_add_button_text` argument.
 
 ## 0.2.1
 

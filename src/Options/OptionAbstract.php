@@ -95,7 +95,13 @@ abstract class OptionAbstract
 
     public function render()
     {
+        global $pagenow;
+
         $type = ($this->meta_box instanceof TaxonomyMetaBox && $this->get_arg('_parent') === null) ? 'taxonomy' : 'post';
+
+        if(!empty($pagenow) && $pagenow == 'edit-tags.php') {
+            $type = 'post';
+        }
 
         return view('options/'.$type.'-base', [
             'slot' => view('options/'.$this->view, ['option' => $this], true),
