@@ -35,6 +35,21 @@ $meta_box = WPMetaBox::taxonomy('Taxonomy settings')
 
 ### Available types
 
+- [Text](#text)
+- [Date](#date)
+- [Number](#number)
+- [Textarea](#textarea)
+- [Checkbox](#checkbox)
+- [Choices (Radio Buttons)](#choices-radio-buttons)
+- [Color](#color)
+- [Select](#select)
+- [Select2](#select2)
+- [Media](#media)
+- [Image](#image)
+- [Code Editor](#code-editor)
+- [WP Editor](#wp-editor)
+- [Repeater](#repeater)
+
 #### Text
 
 ```php
