@@ -13,7 +13,7 @@ use Jeffreyvr\WPMetaBox\Options\Media;
 use Jeffreyvr\WPMetaBox\Options\Number;
 use Jeffreyvr\WPMetaBox\Options\Repeater;
 use Jeffreyvr\WPMetaBox\Options\Select;
-use Jeffreyvr\WPMetaBox\Options\SelectFilter;
+use Jeffreyvr\WPMetaBox\Options\Select2;
 use Jeffreyvr\WPMetaBox\Options\SelectMultiple;
 use Jeffreyvr\WPMetaBox\Options\Text;
 use Jeffreyvr\WPMetaBox\Options\Textarea;
@@ -50,7 +50,7 @@ class Option
             'media' => Media::class,
             'image' => Image::class,
             'color' => Color::class,
-            'select-filter' => SelectFilter::class,
+            'select2' => Select2::class,
         ]);
 
         if (empty($type_map[$this->type])) {

@@ -159,6 +159,10 @@ abstract class OptionAbstract
         }
 
         $string = implode(' ', array_map(function ($key, $value) {
+            if(is_array($value)) {
+                $value = json_encode($value);
+            }
+
             return $key.'="'.esc_attr($value).'"';
         }, array_keys($attributes), $attributes));
 

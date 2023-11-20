@@ -128,6 +128,83 @@ $meta_box->add_option('select-multiple', [
 ]);
 ```
 
+### Select2
+
+You can use `select2` the same way you use the regular `select`.
+
+```php
+$meta_box->add_option('select2', [
+    'name' => 'name_of_option',
+    'label' => __('Label of option', 'textdomain'),
+    'options' => [
+        1 => 'option 1',
+        2 => 'option 2'
+    ]
+]);
+```
+
+If you would like to load your options through ajax, you can do this by defining two callbacks. One for fetching and filtering the options and one for getting the value callback.
+
+The below example is using select2 to select a page.
+
+```php
+$meta_box->add_option('select2', [
+    'name' => 'name_of_option',
+    'label' => __('Label of option', 'textdomain'),
+    'ajax' => [
+        'value' => function($pageId) {
+            return get_the_title($pageId) ?? null;
+        },
+        'action' => function() {
+            $results = array_reduce(get_posts(['post_type' => 'page', 's' => $_GET['q']]), function($item, $page) {
+                $item[$page->ID] = $item->post_title;
+
+                return $item;
+            }, []);
+
+            echo json_encode($results);
+
+            die();
+        }
+    ]
+]);
+```
+
+You may allow multiple values by settings the `multiple` value in `config` to true. If you want to use the ajax functionality here, be sure to define value callback here as well.
+
+```php
+$meta_box->add_option('select2', [
+    'name' => 'name_of_option',
+    'label' => __('Label of option', 'textdomain'),
+    'config' => [
+        'multiple' => true
+    ],
+    'value_label_callback' => function($pageId) {
+        foreach($ids as $id) {
+            $titles[$id] = get_post($id)->post_title ?? $id;
+        }
+        return $titles ?? [];
+    },
+    'ajax_callback' => function() {
+        $results = array_reduce(get_posts(['post_type' => 'page', 's' => $_GET['q']]), function($item, $page) {
+            $item[$page->ID] = $item->post_title;
+
+            return $item;
+        }, []);
+
+        echo json_encode($results);
+
+        die();
+    }
+]);
+```
+
+You can pass anything you'd like to the select2 configuration using `config`, the exception being the ajax part of the configuration.
+
+A list of options can be found [here](https://select2.org/configuration/options-api).
+
+The Select2 that comes with the package is loaded from the Cloudflare CDN. You can overwrite this using the `wmb_select2_assets` filter hook.
+
 #### Media
 
 ```php
@@ -181,8 +258,10 @@ $meta_box->add_option('repeater', [
 ```
 
 ## Contributors
-* [Jeffrey van Rossum](https://github.com/jeffreyvr)
-* [All contributors](https://github.com/jeffreyvr/wp-meta-box/graphs/contributors)
+
+- [Jeffrey van Rossum](https://github.com/jeffreyvr)
+- [All contributors](https://github.com/jeffreyvr/wp-meta-box/graphs/contributors)
 
 ## License
+
 MIT. Please see the [License File](/LICENSE) for more information.
