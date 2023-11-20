@@ -4,6 +4,9 @@ All notable changes to `wp-meta-box` will be documented in this file
 
 ## Unreleased
 
+## 0.4.0
+
+- added `select2` option with ajax search support
 - dropped `select-multiple` in favour of just using `select` and setting `multiple` to `true` (breaking change)
 
 ## 0.3.0
