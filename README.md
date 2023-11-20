@@ -115,12 +115,13 @@ $meta_box->add_option('select', [
 ]);
 ```
 
-#### Select multiple
+You can allow multiple values too.
 
 ```php
-$meta_box->add_option('select-multiple', [
+$meta_box->add_option('select', [
     'name' => 'name_of_option',
     'label' => __('Label of option', 'textdomain'),
+    'multiple' => true,
     'options' => [
         1 => 'option 1',
         2 => 'option 2'
@@ -129,6 +130,8 @@ $meta_box->add_option('select-multiple', [
 ```
 
 ### Select2
+
+Select2 gives you a customizable select box with support for searching.
 
 You can use `select2` the same way you use the regular `select`.
 
@@ -143,7 +146,7 @@ $meta_box->add_option('select2', [
 ]);
 ```
 
-If you would like to load your options through ajax, you can do this by defining two callbacks. One for fetching and filtering the options and one for getting the value callback.
+If you would like to search the options through ajax, you can do this by defining two callbacks (or function names). One for fetching and filtering the options and one for getting the value callback.
 
 The below example is using select2 to select a page.
 
@@ -176,26 +179,26 @@ You may allow multiple values by settings the `multiple` value in `config` to tr
 $meta_box->add_option('select2', [
     'name' => 'name_of_option',
     'label' => __('Label of option', 'textdomain'),
-    'config' => [
-        'multiple' => true
-    ],
-    'value_label_callback' => function($pageId) {
-        foreach($ids as $id) {
-            $titles[$id] = get_post($id)->post_title ?? $id;
+    'multiple' => true,
+    'ajax' => [
+        'value' => function($ids) {
+            foreach($ids as $id) {
+                $titles[$id] = get_the_title($id) ?? $id;
+            }
+            return $titles ?? [];
+        },
+        'action' => function() {
+            $results = array_reduce(get_posts(['post_type' => 'page', 's' => $_GET['q']]), function($item, $page) {
+                $item[$page->ID] = $page->post_title;
+
+                return $item;
+            }, []);
+
+            echo json_encode($results);
+
+            die();
         }
-        return $titles ?? [];
-    },
-    'ajax_callback' => function() {
-        $results = array_reduce(get_posts(['post_type' => 'page', 's' => $_GET['q']]), function($item, $page) {
-            $item[$page->ID] = $item->post_title;
-
-            return $item;
-        }, []);
-
-        echo json_encode($results);
-
-        die();
-    }
+    ]
 ]);
 ```
 

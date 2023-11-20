@@ -16,10 +16,6 @@ class Select2 extends Select
 
         $this->input_attributes['wmb-select2'] = $this->get_config();
 
-        if ($this->is_multiple()) {
-            $this->input_attributes['multiple'] = 'multiple';
-        }
-
         if ($this->is_using_ajax()) {
             $action = "wmb_select2_".$this->generate_hash();
 
@@ -38,38 +34,7 @@ class Select2 extends Select
 
     public function is_multiple()
     {
-        return $this->get_arg('config')['multiple'] ?? false;
-    }
-
-    public function get_name_attribute()
-    {
-        $name = parent::get_name_attribute();
-
-        if ($this->is_multiple()) {
-            return "{$name}[]";
-        }
-
-        return $name;
-    }
-
-    public function get_value_from_request()
-    {
-        return $_REQUEST[parent::get_name_attribute()] ?? [];
-    }
-
-    public function get_value_attribute()
-    {
-        if (! $this->is_multiple()) {
-            return parent::get_value_attribute();
-        }
-
-        $value = parent::get_value_attribute();
-
-        if (empty($value)) {
-            return [];
-        }
-
-        return (array) $value;
+        return ($this->get_arg('config')['multiple'] || $this->get_arg('multiple', true)) ?? false;
     }
 
     public function get_config()

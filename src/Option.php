@@ -42,14 +42,13 @@ class Option
             'checkbox' => Checkbox::class,
             'choices' => Choices::class,
             'textarea' => Textarea::class,
-            'select' => Select::class,
-            'select-multiple' => SelectMultiple::class,
             'wp-editor' => WPEditor::class,
             'code-editor' => CodeEditor::class,
             'repeater' => Repeater::class,
             'media' => Media::class,
             'image' => Image::class,
             'color' => Color::class,
+            'select' => Select::class,
             'select2' => Select2::class,
         ]);
 

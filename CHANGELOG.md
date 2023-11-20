@@ -4,6 +4,8 @@ All notable changes to `wp-meta-box` will be documented in this file
 
 ## Unreleased
 
+- dropped `select-multiple` in favour of just using `select` and setting `multiple` to `true` (breaking change)
+
 ## 0.3.0
 
 - for taxonomy meta box, allow to set contexts (`create` and `edit`) to control when the options should be shown.
