@@ -160,7 +160,7 @@ $meta_box->add_option('select2', [
         },
         'action' => function() {
             $results = array_reduce(get_posts(['post_type' => 'page', 's' => $_GET['q']]), function($item, $page) {
-                $item[$page->ID] = $item->post_title;
+                $item[$page->ID] = $page->post_title;
 
                 return $item;
             }, []);
