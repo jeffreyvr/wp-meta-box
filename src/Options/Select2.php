@@ -34,7 +34,11 @@ class Select2 extends Select
 
     public function is_multiple()
     {
-        return ($this->get_arg('config')['multiple'] || $this->get_arg('multiple', true)) ?? false;
+        if(isset($this->get_arg('config')['multiple']) && $this->get_arg('config')['multiple']) {
+            return true;
+        }
+
+        return $this->get_arg('multiple', false);
     }
 
     public function get_config()
