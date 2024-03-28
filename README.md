@@ -1,3 +1,11 @@
+<p align="center"><a href="https://vanrossum.dev" target="_blank"><img src="https://raw.githubusercontent.com/jeffreyvr/vanrossum.dev-art/main/logo.svg" width="320" alt="vanrossum.dev Logo"></a></p>
+
+<p align="center">
+<a href="https://packagist.org/packages/jeffreyvanrossum/wp-meta-box"><img src="https://img.shields.io/packagist/dt/jeffreyvanrossum/wp-meta-box" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/jeffreyvanrossum/wp-meta-box"><img src="https://img.shields.io/packagist/v/jeffreyvanrossum/wp-meta-box" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/jeffreyvanrossum/wp-meta-box"><img src="https://img.shields.io/packagist/l/jeffreyvanrossum/wp-meta-box" alt="License"></a>
+</p>
+
 # WP Meta Box
 
 This package aims to make it easier to create meta boxes for WordPress plugins.
