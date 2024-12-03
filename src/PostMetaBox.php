@@ -137,4 +137,27 @@ class PostMetaBox extends MetaBox
 
         return $option;
     }
+
+    public function add_callback($callback)
+    {
+        $callbackOption = new CallbackOption($callback);
+
+        $this->options[] = $callbackOption;
+
+        return $callbackOption;
+    }
+
+    public function add_note($html)
+    {
+        return $this->add_html("<div class=\"wmb-note\">{$html}</div>");
+    }
+
+    public function add_html($html)
+    {
+        $htmlOption = new HtmlOption($html);
+
+        $this->options[] = $htmlOption;
+
+        return $htmlOption;
+    }
 }

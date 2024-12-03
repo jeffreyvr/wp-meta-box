@@ -1,5 +1,8 @@
 .wmb-input {
     width: 100%;
+}
+
+.wmb-input:nth-last-of-type {
     margin-bottom: 1em;
 }
 
@@ -22,8 +25,8 @@
 }
 
 .wmb-input-description {
-    font-style: italic;
-    margin: 0 0 0.5em 0;
+    margin: .5em 0;
+    color: #646970;
 }
 
 .wmb-code-editor {
@@ -47,18 +50,35 @@
     border: none;
     background: none;
     -webkit-appearance: none;
+    margin: 0;
+}
+
+.wmb-note {
+    background: #f1f1f1;
+    color: #333;
+    padding: 10px;
+    border-radius: 3px;
+    margin: 1em 0;
 }
 
 .wmb-delete {
+    svg {
+        width: 18px;
+        fill: #1E1E1E;
+    }
+
     cursor: pointer;
 }
 
 .wmb-drag {
+    width: 12px;
     cursor: grab;
+    fill: #1E1E1E;
 }
 
 .wmb-repeater-option-group {
     border: 1px solid #ddd;
+    border-radius: 2px;
     display: block;
     background-color: #fff;
     margin-bottom: 10px;

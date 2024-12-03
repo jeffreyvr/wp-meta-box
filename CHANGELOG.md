@@ -4,6 +4,12 @@ All notable changes to `wp-meta-box` will be documented in this file
 
 ## Unreleased
 
+## 0.5.0
+
+- fix enqueing assets multiple times
+- add `add_html`, `add_note` and `add_callback` to `PostMetaBox`
+- minor styling changes
+
 ## 0.4.1
 
 - fix multiple being set to true when it shouldn't be (select2)
