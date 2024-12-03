@@ -11,6 +11,11 @@ class HtmlOption
         $this->html = $html;
     }
 
+    public function save()
+    {
+        //
+    }
+
     public function render()
     {
         return $this->html;

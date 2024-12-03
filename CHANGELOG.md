@@ -4,6 +4,10 @@ All notable changes to `wp-meta-box` will be documented in this file
 
 ## Unreleased
 
+## 0.5.1
+
+- fix error on post save
+
 ## 0.5.0
 
 - fix enqueing assets multiple times

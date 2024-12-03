@@ -11,6 +11,11 @@ class CallbackOption
         $this->callback = $callback;
     }
 
+    public function save()
+    {
+        //
+    }
+
     public function render()
     {
         $callback = $this->callback;
