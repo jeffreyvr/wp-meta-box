@@ -66,6 +66,15 @@ abstract class OptionAbstract
         return $post->ID ?? false;
     }
 
+    public function sanitize_value($value)
+    {
+        if(($callback = $this->get_arg('sanitize')) && is_callable($callback)) {
+            $value = $callback($value);
+        }
+
+        return $value;
+    }
+
     public function save($object_id = null)
     {
         if ($this->meta_box instanceof PostMetaBox) {
@@ -78,7 +87,7 @@ abstract class OptionAbstract
     public function savePost()
     {
         if ($value = $this->get_value_from_request()) {
-            update_post_meta($this->get_object_id(), $this->get_name_attribute(), $value);
+            update_post_meta($this->get_object_id(), $this->get_name_attribute(), $this->sanitize_value($value));
         } else {
             delete_post_meta($this->get_object_id(), $this->get_name_attribute());
         }
@@ -87,7 +96,7 @@ abstract class OptionAbstract
     public function saveTaxonomy($object_id)
     {
         if ($value = $this->get_value_from_request()) {
-            update_term_meta($object_id, $this->get_name_attribute(), $value);
+            update_term_meta($object_id, $this->get_name_attribute(), $this->sanitize_value($value));
         } else {
             delete_term_meta($object_id, $this->get_name_attribute());
         }

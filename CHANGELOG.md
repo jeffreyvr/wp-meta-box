@@ -4,7 +4,10 @@ All notable changes to `wp-meta-box` will be documented in this file
 
 ## Unreleased
 
+## 0.6.0
+
 - allow to set `min` and `max` on number option
+- add `sanitize` callback to options
 
 ## 0.5.1
 
