@@ -85,6 +85,8 @@ $meta_box->add_option('number', [
 ]);
 ```
 
+You may also pass `min` and `max`.
+
 #### Textarea
 
 ```php
@@ -280,6 +282,25 @@ $meta_box->add_option('repeater', [
 ])->add_repeater_option('image', [
     'name' => 'image',
     'label' => __('Image', 'textdomain'),
+]);
+```
+
+### Sanitize
+
+If you want to sanitize the values of the input, you can pass a sanitize callback.
+
+For example:
+
+```php
+$meta_box->add_option('number', [
+    'name' => 'some_number',
+    'label' => __('Some number', 'textdomain'),
+    'description' => __('Must be positive', 'textdomain'),
+    'min' => 0,
+    'max' => 10,
+    'sanitize' => function($value) {
+        return abs($value);
+    }
 ]);
 ```
 
