@@ -8,6 +8,7 @@ All notable changes to `wp-meta-box` will be documented in this file
 
 - allow to set `min` and `max` on number option
 - add `sanitize` callback to options
+- fix `0` value not being saved
 
 ## 0.5.1
 

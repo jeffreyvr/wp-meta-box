@@ -86,7 +86,9 @@ abstract class OptionAbstract
 
     public function savePost()
     {
-        if ($value = $this->get_value_from_request()) {
+        $value = $this->get_value_from_request();
+
+        if ($value !== null) {
             update_post_meta($this->get_object_id(), $this->get_name_attribute(), $this->sanitize_value($value));
         } else {
             delete_post_meta($this->get_object_id(), $this->get_name_attribute());
@@ -95,7 +97,9 @@ abstract class OptionAbstract
 
     public function saveTaxonomy($object_id)
     {
-        if ($value = $this->get_value_from_request()) {
+        $value = $this->get_value_from_request();
+
+        if ($value !== null) {
             update_term_meta($object_id, $this->get_name_attribute(), $this->sanitize_value($value));
         } else {
             delete_term_meta($object_id, $this->get_name_attribute());
