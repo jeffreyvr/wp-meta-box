@@ -4,6 +4,8 @@ All notable changes to `wp-meta-box` will be documented in this file
 
 ## Unreleased
 
+- allow to set `min` and `max` on number option
+
 ## 0.5.1
 
 - fix error on post save
